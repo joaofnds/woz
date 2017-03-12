@@ -15,13 +15,16 @@ public class CommandWords
 {
     // a constant array that holds all valid command words
     private static final String[] validCommands = {
-        "go", "quit", "help"
+            CommandWords.GO,
+            CommandWords.LOOK,
+            CommandWords.HELP,
+            CommandWords.QUIT
     };
 
     public static final String GO = "go";
-    public static final String QUIT = "quit";
-    public static final String HELP = "help";
     public static final String LOOK = "look";
+    public static final String HELP = "help";
+    public static final String QUIT = "quit";
 
     /**
      * Constructor - initialise the command words.
@@ -37,11 +40,12 @@ public class CommandWords
      */
     public boolean isCommand(String aString)
     {
-        for(int i = 0; i < validCommands.length; i++) {
-            if(validCommands[i].equals(aString))
+        for(String command : validCommands) {
+            if (command.equals(aString)) {
                 return true;
+            }
         }
-        // if we get here, the string was not found in the commands
+
         return false;
     }
 

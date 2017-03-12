@@ -1,6 +1,7 @@
 package woz.engine;
 
 import woz.model.Hero;
+import woz.model.Item;
 
 /**
  *  This class is the main class of the "World of Zuul" application. 
@@ -30,6 +31,7 @@ public class Game
      */
     public Game() 
     {
+        this.player = new Hero("Joao", 1000);
         createRooms();
         parser = new Parser();
     }
@@ -47,7 +49,14 @@ public class Game
         pub = new Room("in the campus pub");
         lab = new Room("in a computing lab");
         office = new Room("in the computing admin office");
-        
+
+        Item maca = new Item("maça", "Coma para ganhar energia", 1);
+        outside.getItems().add(maca);
+        theatre.getItems().add(maca);
+        pub.getItems().add(maca);
+        lab.getItems().add(maca);
+        office.getItems().add(maca);
+
         // initialise room exits
         outside.setExit("east", theatre);
         outside.setExit("south", lab);
@@ -114,7 +123,7 @@ public class Game
 
         switch (commandWord) {
             case CommandWords.HELP:
-                printHelp();
+                printHelp(command);
                 break;
             case CommandWords.GO:
                 goRoom(command);
@@ -128,6 +137,18 @@ public class Game
             case CommandWords.SHOW:
                 show(command);
                 break;
+            case CommandWords.COLLECT:
+                collectItem(command);
+                break;
+            case CommandWords.PURGE:
+                purgeItem(command);
+                break;
+            case CommandWords.USE:
+                useItem(command);
+                break;
+            case CommandWords.EQUIP:
+                equipItem(command);
+                break;
             default:
                 break;
         }
@@ -140,13 +161,17 @@ public class Game
      * Here we print some stupid, cryptic message and a list of the 
      * command words.
      */
-    private void printHelp() 
+    private void printHelp(Command command)
     {
-        System.out.println("You are lost. You are alone. You wander");
-        System.out.println("around at the university.");
-        System.out.println();
-        System.out.println("Your command words are:");
-        parser.showCommands();
+        if (command.getSecondWord() == null) {
+            System.out.println("You are lost. You are alone. You wander");
+            System.out.println("around at the university.");
+            System.out.println();
+            System.out.println("Your command words are:");
+            parser.showCommands();
+        } else {
+            System.out.println(CommandWords.getDescription(command));
+        }
     }
 
     /** 
@@ -207,7 +232,76 @@ public class Game
             case "inventory":
                 this.player.showInventory();
                 break;
+            default:
+                boolean found = false;
+                for (Item i : player.getInventory().getItems()) {
+                    if (i.getName().equals(command.getSecondWord())) {
+                        System.out.println(i.toString());
+                        found = true;
+                    }
+                }
+                if (!found)
+                    System.out.println("You don't have this item in your inventory");
+                break;
         }
+    }
+
+    private void collectItem(Command command) {
+        if (command.getSecondWord() == null) {
+            System.out.println("Collect what?");
+            return;
+        }
+
+        if (currentRoom.getItems().size() == 0) {
+            System.out.println("This room doesn't have any items!");
+            return;
+        }
+
+        String item = command.getSecondWord();
+        for (Item i : currentRoom.getItems()) {
+            if (i.getName().equals(item)) {
+                if (player.addItemToInventory(i)) {
+                    System.out.println("Item collected!");
+                    currentRoom.getItems().remove(i);
+                } else {
+                    System.out.println("Couldn't collect item!");
+                }
+                return;
+            }
+        }
+
+        System.out.printf("Couldn't find item '%s' in this room.%n", item);
+    }
+
+    private void purgeItem(Command command) {
+        if (command.getSecondWord() == null) {
+            System.out.println("You need to provide a item name");
+            return;
+        }
+        
+        String itemName = command.getSecondWord();
+        boolean found = false;
+        for (Item i : this.player.getInventory().getItems()) {
+            if (i.getName().equals(itemName)) {
+                player.removeItemFromInventory(i);
+                found = true;
+                break;
+            }
+        }
+        
+        if (!found) {
+            System.out.printf("'%s' was not found in your inventory!%n", itemName);
+        } else {
+            System.out.printf("'%s' was purged from your inventory!%n", itemName);
+        }
+    }
+
+    private void useItem(Command command) {
+        System.out.println("Functionality not implemented yet");
+    }
+
+    private void equipItem(Command command) {
+        System.out.println("Functionality not implemented yet");
     }
 
     /** 

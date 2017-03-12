@@ -37,4 +37,8 @@ public class Hero extends Character {
     public void showInventory() {
         this.getInventory().show();
     }
+
+    public Item searchInventory(String name) {
+        return this.inventory.getItem(name);
+    }
 }

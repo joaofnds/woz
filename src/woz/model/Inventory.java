@@ -2,6 +2,7 @@ package woz.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Inventory {
     public static final Integer MAX = 1000;
@@ -32,7 +33,7 @@ public class Inventory {
 
     public Item getItem(String name) {
         for (Item item : this.getItems()) {
-            if (item.getName().equals(name)) {
+            if (item.getName().toLowerCase().equals(name)) {
                 return item;
             }
         }
@@ -60,7 +61,7 @@ public class Inventory {
     }
 
     public Boolean isFull() {
-        return this.getLoad() == Inventory.MAX;
+        return Objects.equals(this.getLoad(), Inventory.MAX);
     }
 
     public void show() {

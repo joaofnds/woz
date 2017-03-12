@@ -1,5 +1,7 @@
 package woz.engine;
 
+import woz.model.Hero;
+
 /**
  *  This class is the main class of the "World of Zuul" application. 
  *  "World of Zuul" is a very simple, text based adventure game.  Users 
@@ -21,6 +23,7 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
+    private Hero player;
         
     /**
      * Create the game and initialise its internal map.
@@ -120,7 +123,10 @@ public class Game
                 wantToQuit = quit(command);
                 break;
             case CommandWords.LOOK:
-                look();
+                look(command);
+                break;
+            case CommandWords.SHOW:
+                show(command);
                 break;
             default:
                 break;
@@ -169,8 +175,39 @@ public class Game
         }
     }
 
-    private void look() {
-        System.out.printf("%n%s%n", currentRoom.getLongDescription());
+    private void look(Command command) {
+        if (command.getSecondWord() == null) {
+            System.out.printf("%n%s%n", currentRoom.getLongDescription());
+            return;
+        }
+
+        switch (command.getSecondWord()) {
+            case "enemies":
+                currentRoom.lookEnemiesDetails();
+                break;
+            case "items":
+                currentRoom.lookItemsDetails();
+                break;
+            case "exits":
+                currentRoom.lookExits();
+                break;
+            default:
+                System.out.println("I can't look into that..");
+                break;
+        }
+    }
+
+    private void show(Command command) {
+        if (command.getSecondWord() == null) {
+            System.out.println("Show what?");
+            return;
+        }
+
+        switch (command.getSecondWord()) {
+            case "inventory":
+                this.player.showInventory();
+                break;
+        }
     }
 
     /** 

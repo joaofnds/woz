@@ -17,12 +17,14 @@ public class CommandWords
     private static final String[] validCommands = {
             CommandWords.GO,
             CommandWords.LOOK,
+            CommandWords.SHOW,
             CommandWords.HELP,
             CommandWords.QUIT
     };
 
     public static final String GO = "go";
     public static final String LOOK = "look";
+    public static final String SHOW = "show";
     public static final String HELP = "help";
     public static final String QUIT = "quit";
 

@@ -5,7 +5,7 @@ public class Potion extends BaseItem {
     private Integer lifeIncrease;
 
     public Potion(String name, String description, Integer space, Integer lifeIncrease) {
-        super(name, description, space);
+        super(name, description, space, BaseItem.POTION);
     }
 
     public Integer getLifeIncrease() {

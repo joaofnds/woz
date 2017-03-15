@@ -10,10 +10,10 @@ public class Inventory {
     public static final Integer MAX = 1000;
 
     private Integer load;
-    List<BaseItem> baseItems;
+    List<BaseItem> items;
 
     public Inventory() {
-        this.baseItems = new ArrayList<BaseItem>();
+        this.items = new ArrayList<BaseItem>();
         this.load = 0;
     }
 
@@ -25,16 +25,16 @@ public class Inventory {
         this.load = load;
     }
 
-    public List<BaseItem> getBaseItems() {
-        return baseItems;
+    public List<BaseItem> getItems() {
+        return items;
     }
 
-    public void setBaseItems(List<BaseItem> baseItems) {
-        this.baseItems = baseItems;
+    public void setItems(List<BaseItem> items) {
+        this.items = items;
     }
 
     public BaseItem getItem(String name) {
-        for (BaseItem baseItem : this.getBaseItems()) {
+        for (BaseItem baseItem : this.getItems()) {
             if (baseItem.getName().toLowerCase().equals(name)) {
                 return baseItem;
             }
@@ -46,17 +46,17 @@ public class Inventory {
         if (this.load+ baseItem.getSpace() > Inventory.MAX) {
             return false;
         } else {
-            this.baseItems.add(baseItem);
+            this.items.add(baseItem);
             this.load += baseItem.getSpace();
             return true;
         }
     }
 
     public Boolean removeItem(BaseItem baseItem) {
-        if (!this.getBaseItems().contains(baseItem)) {
+        if (!this.getItems().contains(baseItem)) {
             return false;
         } else {
-            this.baseItems.remove(baseItem);
+            this.items.remove(baseItem);
             this.load -= baseItem.getSpace();
             return true;
         }
@@ -68,7 +68,7 @@ public class Inventory {
 
     public void show() {
         System.out.printf("- Inventory: (%d/%d)%n", this.getLoad(), Inventory.MAX);
-        for (BaseItem baseItem : this.getBaseItems()) {
+        for (BaseItem baseItem : this.getItems()) {
             System.out.println(baseItem.toString());
         }
     }

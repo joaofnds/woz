@@ -7,8 +7,8 @@ public class Hero extends Character {
     private Inventory inventory;
     private Integer XP;
 
-    public Hero(String name, Integer life) {
-        super(name, life, 1);
+    public Hero(String name, Integer hp) {
+        super(name, hp, 1);
         this.XP = 0;
         this.inventory = new Inventory();
     }

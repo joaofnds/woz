@@ -2,6 +2,8 @@ package woz.engine;
 
 import woz.model.character.Hero;
 import woz.model.item.BaseItem;
+import woz.model.item.Food;
+import woz.model.item.Potion;
 
 /**
  *  This class is the main class of the "World of Zuul" application. 
@@ -31,7 +33,7 @@ public class Game
      */
     public Game() 
     {
-        this.player = new Hero("Joao", 1000);
+        this.player = new Hero("Joao", 90);
         createRooms();
         parser = new Parser();
     }
@@ -50,7 +52,7 @@ public class Game
         lab = new Room("in a computing lab");
         office = new Room("in the computing admin office");
 
-        BaseItem maca = new BaseItem("maça", "Coma para ganhar energia", 1);
+        Food maca = new Food("maça", "Coma para ganhar energia", 1, 4);
         outside.getBaseItems().add(maca);
         theatre.getBaseItems().add(maca);
         pub.getBaseItems().add(maca);
@@ -234,7 +236,7 @@ public class Game
                 break;
             default:
                 boolean found = false;
-                for (BaseItem i : player.getInventory().getBaseItems()) {
+                for (BaseItem i : player.getInventory().getItems()) {
                     if (i.getName().equals(command.getSecondWord())) {
                         System.out.println(i.toString());
                         found = true;
@@ -281,7 +283,7 @@ public class Game
         
         String itemName = command.getSecondWord();
         boolean found = false;
-        for (BaseItem i : this.player.getInventory().getBaseItems()) {
+        for (BaseItem i : this.player.getInventory().getItems()) {
             if (i.getName().equals(itemName)) {
                 player.removeItemFromInventory(i);
                 found = true;
@@ -297,7 +299,38 @@ public class Game
     }
 
     private void useItem(Command command) {
-        System.out.println("Functionality not implemented yet");
+        if (!command.hasSecondWord()) {
+            System.out.println("Use what?");
+            return;
+        }
+
+        BaseItem item = player.getInventory().getItem(command.getSecondWord());
+        if (item == null) {
+            System.out.println("You don't have this item!");
+            return;
+        }
+
+        int increase;
+
+        switch (item.getType()) {
+            case BaseItem.DEFENSE:
+                System.out.println("This is a defense item");
+                break;
+            case BaseItem.FOOD:
+                increase = ((Food) item).getLifeIncrease();
+                player.increaseHp(increase);
+                break;
+            case BaseItem.POTION:
+                increase = ((Potion) item).getLifeIncrease();
+                player.increaseHp(increase);
+                break;
+            case BaseItem.WEAPON:
+                System.out.println("This is a weapon item");
+                break;
+            default:
+                System.out.println("Item type not recognized");
+                break;
+        }
     }
 
     private void equipItem(Command command) {

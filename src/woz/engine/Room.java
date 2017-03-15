@@ -158,7 +158,7 @@ public class Room
         String s = String.format("Enemies in this room:%n");
         for (Enemy e : this.enemies) {
             s += String.format("%n\tName: %s%n", e.getName());
-            s += String.format("\tLife: %s%n", e.getLife());
+            s += String.format("\tLife: %s%n", e.getHp());
             s += String.format("\tLevel: %s%n", e.getLevel());
         }
         return s;

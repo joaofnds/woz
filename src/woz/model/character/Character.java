@@ -1,13 +1,16 @@
 package woz.model.character;
 
 public abstract class Character {
+    public static final Integer MAX_HP = 100;
+    public static final Integer MAX_LEVEL = 10;
+
     private String name;
-    private Integer life;
+    private Integer hp;
     private Integer level;
 
-    public Character(String name, Integer life, Integer level) {
+    public Character(String name, Integer hp, Integer level) {
         this.name = name;
-        this.life = life;
+        this.hp = hp;
         this.level = level;
     }
 
@@ -19,12 +22,24 @@ public abstract class Character {
         this.name = name;
     }
 
-    public Integer getLife() {
-        return life;
+    public Integer getHp() {
+        return hp;
     }
 
-    public void setLife(Integer life) {
-        this.life = life;
+    public void setHp(Integer hp) {
+        this.hp = (hp > Character.MAX_HP)
+                ? Character.MAX_HP
+                : (hp < 0)
+                    ? 0
+                    : hp;
+    }
+
+    public void increaseHp(Integer amount) {
+        this.setHp(this.hp + amount);
+    }
+
+    public void decreaseHp(Integer amount) {
+        this.setHp(this.hp - amount);
     }
 
     public Integer getLevel() {
@@ -32,6 +47,18 @@ public abstract class Character {
     }
 
     public void setLevel(Integer level) {
-        this.level = level;
+        this.level = (level > Character.MAX_LEVEL)
+                ? Character.MAX_LEVEL
+                : (level < 0)
+                    ? 0
+                    : level;
+    }
+
+    public void increaseLevel() {
+        this.setLevel(this.level + 1);
+    }
+
+    public void decreaseLevel() {
+        this.setLevel(this.level - 1);
     }
 }

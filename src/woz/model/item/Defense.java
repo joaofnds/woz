@@ -5,7 +5,7 @@ public class Defense extends BaseItem {
     private Integer defenseIncrease;
 
     public Defense(String name, String description, Integer space, Integer defenseIncrease) {
-        super(name, description, space);
+        super(name, description, space, BaseItem.DEFENSE);
     }
 
     public Integer getDefenseIncrease() {

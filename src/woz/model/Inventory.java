@@ -44,6 +44,7 @@ public class Inventory {
 
     public Boolean addItem(BaseItem baseItem) {
         if (this.load+ baseItem.getSpace() > Inventory.MAX) {
+            System.out.println("Insufficient space on your inventory");
             return false;
         } else {
             this.items.add(baseItem);
@@ -71,5 +72,28 @@ public class Inventory {
         for (BaseItem baseItem : this.getItems()) {
             System.out.println(baseItem.toString());
         }
+    }
+
+    public boolean contains(BaseItem item) {
+        if (item == null)
+            return false;
+
+        for (BaseItem i : this.items) {
+            if (i.equals(item)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean contains(String itemName) {
+        for (BaseItem i : this.items) {
+            if (i.getName().equals(itemName)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

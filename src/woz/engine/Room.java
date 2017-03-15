@@ -23,7 +23,7 @@ public class Room
 {
     private String description;
     private HashMap<String, Room> exits;        // stores exits of this room.
-    private List<BaseItem> baseItems;
+    private List<BaseItem> items;
     private List<Enemy> enemies;
 
     /**
@@ -36,7 +36,7 @@ public class Room
     {
         this.description = description;
         this.exits = new HashMap<String, Room>();
-        this.baseItems = new ArrayList<BaseItem>();
+        this.items = new ArrayList<BaseItem>();
         this.enemies = new ArrayList<Enemy>();
     }
 
@@ -88,8 +88,8 @@ public class Room
         return exits.get(direction);
     }
 
-    public List<BaseItem> getBaseItems() {
-        return baseItems;
+    public List<BaseItem> getItems() {
+        return items;
     }
 
     public List<Enemy> getEnemies() {
@@ -126,24 +126,24 @@ public class Room
     }
 
     public String getItemsString() {
-        if (this.baseItems.size() == 0)
-            return "There's no baseItems in this room.";
+        if (this.items.size() == 0)
+            return "There's no items in this room.";
 
         String s = "Items: ";
-        for (int i = 0; i < this.baseItems.size(); i++) {
-            s += i+1 == this.baseItems.size()
-                    ? this.baseItems.get(i).getName() + "."
-                    : this.baseItems.get(i).getName() + ", ";
+        for (int i = 0; i < this.items.size(); i++) {
+            s += i+1 == this.items.size()
+                    ? this.items.get(i).getName() + "."
+                    : this.items.get(i).getName() + ", ";
         }
         return s;
     }
 
     private String getItemsDetailsString() {
-        if (this.baseItems.size() == 0)
-            return "There's no baseItems in this room.";
+        if (this.items.size() == 0)
+            return "There's no items in this room.";
 
         String s = String.format("Items in this room:%n");
-        for (BaseItem i : this.baseItems) {
+        for (BaseItem i : this.items) {
             s += String.format("%n\tName: %s%n", i.getName());
             s += String.format("\tDescription: %s%n", i.getDescription());
             s += String.format("\tSpace: %s%n", i.getSpace());

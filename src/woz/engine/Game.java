@@ -1,9 +1,7 @@
 package woz.engine;
 
 import woz.model.character.Hero;
-import woz.model.item.BaseItem;
-import woz.model.item.Food;
-import woz.model.item.Potion;
+import woz.model.item.*;
 
 /**
  *  This class is the main class of the "World of Zuul" application. 
@@ -53,11 +51,18 @@ public class Game
         office = new Room("in the computing admin office");
 
         Food maca = new Food("maça", "Coma para ganhar energia", 1, 4);
-        outside.getBaseItems().add(maca);
-        theatre.getBaseItems().add(maca);
-        pub.getBaseItems().add(maca);
-        lab.getBaseItems().add(maca);
-        office.getBaseItems().add(maca);
+        Weapon sword = new Weapon("sword", "Kill'em all", 5, 20);
+        Defense shield = new Defense("shield", "Defend'em all", 3, 15);
+
+        outside.getItems().add(maca);
+        outside.getItems().add(sword);
+        outside.getItems().add(shield);
+
+        theatre.getItems().add(maca);
+        pub.getItems().add(maca);
+        lab.getItems().add(maca);
+        office.getItems().add(maca);
+
 
         // initialise room exits
         outside.setExit("east", theatre);
@@ -149,7 +154,7 @@ public class Game
                 this.player.useItem(command.getSecondWord());
                 break;
             case CommandWords.EQUIP:
-                equipItem(command);
+                this.player.equipItem(command.getSecondWord());
                 break;
             default:
                 break;
@@ -235,9 +240,7 @@ public class Game
                 this.player.showInventory();
                 break;
             case "status":
-                System.out.printf("HP: %d", this.player.getHp());
-                System.out.printf("XP: %d", this.player.getXP());
-                System.out.printf("Level: %d", this.player.getLevel());
+                this.player.showStatus();
                 break;
             default:
                 boolean found = false;
@@ -259,17 +262,17 @@ public class Game
             return;
         }
 
-        if (currentRoom.getBaseItems().size() == 0) {
+        if (currentRoom.getItems().size() == 0) {
             System.out.println("This room doesn't have any items!");
             return;
         }
 
         String item = command.getSecondWord();
-        for (BaseItem i : currentRoom.getBaseItems()) {
+        for (BaseItem i : currentRoom.getItems()) {
             if (i.getName().equals(item)) {
                 if (player.addItemToInventory(i)) {
                     System.out.println("Item collected!");
-                    currentRoom.getBaseItems().remove(i);
+                    currentRoom.getItems().remove(i);
                 } else {
                     System.out.println("Couldn't collect item!");
                 }
@@ -312,8 +315,7 @@ public class Game
      * whether we really quit the game.
      * @return true, if this command quits the game, false otherwise.
      */
-    private boolean quit(Command command) 
-    {
+    private boolean quit(Command command) {
         if(command.hasSecondWord()) {
             System.out.println("Quit what?");
             return false;

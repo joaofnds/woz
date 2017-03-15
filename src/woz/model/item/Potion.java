@@ -6,6 +6,7 @@ public class Potion extends BaseItem {
 
     public Potion(String name, String description, Integer space, Integer lifeIncrease) {
         super(name, description, space, BaseItem.POTION);
+        this.lifeIncrease = lifeIncrease;
     }
 
     public Integer getLifeIncrease() {

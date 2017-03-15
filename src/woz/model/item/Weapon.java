@@ -6,6 +6,7 @@ public class Weapon extends BaseItem {
 
     public Weapon(String name, String description, Integer space, Integer damageIncrease) {
         super(name, description, space, BaseItem.WEAPON);
+        this.damageIncrease = damageIncrease;
     }
 
     public Integer getDamageIncrease() {
@@ -14,5 +15,13 @@ public class Weapon extends BaseItem {
 
     public void setDamageIncrease(Integer damageIncrease) {
         this.damageIncrease = damageIncrease;
+    }
+
+    public void showStatus() {
+        System.out.println("\tWeapon:");
+        System.out.println("\t\tName: " + this.getName());
+        System.out.println("\t\tDescription: " + this.getDescription());
+        System.out.println("\t\tSpace: " + this.getSpace());
+        System.out.printf("\t\tDamage Increase: %d%%%n", this.getDamageIncrease());
     }
 }

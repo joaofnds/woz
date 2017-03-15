@@ -2,6 +2,8 @@ package woz.model.character;
 
 import woz.model.Inventory;
 import woz.model.item.BaseItem;
+import woz.model.item.Food;
+import woz.model.item.Potion;
 
 public class Hero extends Character {
     private Inventory inventory;
@@ -43,5 +45,41 @@ public class Hero extends Character {
 
     public BaseItem searchInventory(String name) {
         return this.inventory.getItem(name);
+    }
+
+    public void useItem(String itemName) {
+            if (itemName.length() == 0) {
+                System.out.println("Use what?");
+                return;
+            }
+
+            BaseItem item = this.getInventory().getItem(itemName);
+            if (item == null) {
+                System.out.println("You don't have this item!");
+                return;
+            }
+
+            int increase;
+
+            switch (item.getType()) {
+                case BaseItem.DEFENSE:
+                    System.out.println("This is a defense item");
+                    break;
+                case BaseItem.FOOD:
+                    increase = ((Food) item).getLifeIncrease();
+                    this.increaseHp(increase);
+                    this.getInventory().removeItem(item);
+                    break;
+                case BaseItem.POTION:
+                    increase = ((Potion) item).getLifeIncrease();
+                    this.increaseHp(increase);
+                    break;
+                case BaseItem.WEAPON:
+                    System.out.println("This is a weapon item");
+                    break;
+                default:
+                    System.out.println("Item type not recognized");
+                    break;
+            }
     }
 }

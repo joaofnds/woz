@@ -146,7 +146,7 @@ public class Game
                 purgeItem(command);
                 break;
             case CommandWords.USE:
-                useItem(command);
+                this.player.useItem(command.getSecondWord());
                 break;
             case CommandWords.EQUIP:
                 equipItem(command);
@@ -234,6 +234,11 @@ public class Game
             case "inventory":
                 this.player.showInventory();
                 break;
+            case "status":
+                System.out.printf("HP: %d", this.player.getHp());
+                System.out.printf("XP: %d", this.player.getXP());
+                System.out.printf("Level: %d", this.player.getLevel());
+                break;
             default:
                 boolean found = false;
                 for (BaseItem i : player.getInventory().getItems()) {
@@ -295,41 +300,6 @@ public class Game
             System.out.printf("'%s' was not found in your inventory!%n", itemName);
         } else {
             System.out.printf("'%s' was purged from your inventory!%n", itemName);
-        }
-    }
-
-    private void useItem(Command command) {
-        if (!command.hasSecondWord()) {
-            System.out.println("Use what?");
-            return;
-        }
-
-        BaseItem item = player.getInventory().getItem(command.getSecondWord());
-        if (item == null) {
-            System.out.println("You don't have this item!");
-            return;
-        }
-
-        int increase;
-
-        switch (item.getType()) {
-            case BaseItem.DEFENSE:
-                System.out.println("This is a defense item");
-                break;
-            case BaseItem.FOOD:
-                increase = ((Food) item).getLifeIncrease();
-                player.increaseHp(increase);
-                break;
-            case BaseItem.POTION:
-                increase = ((Potion) item).getLifeIncrease();
-                player.increaseHp(increase);
-                break;
-            case BaseItem.WEAPON:
-                System.out.println("This is a weapon item");
-                break;
-            default:
-                System.out.println("Item type not recognized");
-                break;
         }
     }
 

@@ -1,5 +1,7 @@
 package woz.model;
 
+import woz.model.item.BaseItem;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -8,10 +10,10 @@ public class Inventory {
     public static final Integer MAX = 1000;
 
     private Integer load;
-    List<Item> items;
+    List<BaseItem> baseItems;
 
     public Inventory() {
-        this.items = new ArrayList<Item>();
+        this.baseItems = new ArrayList<BaseItem>();
         this.load = 0;
     }
 
@@ -23,39 +25,39 @@ public class Inventory {
         this.load = load;
     }
 
-    public List<Item> getItems() {
-        return items;
+    public List<BaseItem> getBaseItems() {
+        return baseItems;
     }
 
-    public void setItems(List<Item> items) {
-        this.items = items;
+    public void setBaseItems(List<BaseItem> baseItems) {
+        this.baseItems = baseItems;
     }
 
-    public Item getItem(String name) {
-        for (Item item : this.getItems()) {
-            if (item.getName().toLowerCase().equals(name)) {
-                return item;
+    public BaseItem getItem(String name) {
+        for (BaseItem baseItem : this.getBaseItems()) {
+            if (baseItem.getName().toLowerCase().equals(name)) {
+                return baseItem;
             }
         }
         return null;
     }
 
-    public Boolean addItem(Item item) {
-        if (this.load+item.getSpace() > Inventory.MAX) {
+    public Boolean addItem(BaseItem baseItem) {
+        if (this.load+ baseItem.getSpace() > Inventory.MAX) {
             return false;
         } else {
-            this.items.add(item);
-            this.load += item.getSpace();
+            this.baseItems.add(baseItem);
+            this.load += baseItem.getSpace();
             return true;
         }
     }
 
-    public Boolean removeItem(Item item) {
-        if (!this.getItems().contains(item)) {
+    public Boolean removeItem(BaseItem baseItem) {
+        if (!this.getBaseItems().contains(baseItem)) {
             return false;
         } else {
-            this.items.remove(item);
-            this.load -= item.getSpace();
+            this.baseItems.remove(baseItem);
+            this.load -= baseItem.getSpace();
             return true;
         }
     }
@@ -66,8 +68,8 @@ public class Inventory {
 
     public void show() {
         System.out.printf("- Inventory: (%d/%d)%n", this.getLoad(), Inventory.MAX);
-        for (Item item : this.getItems()) {
-            System.out.println(item.toString());
+        for (BaseItem baseItem : this.getBaseItems()) {
+            System.out.println(baseItem.toString());
         }
     }
 }

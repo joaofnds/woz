@@ -1,4 +1,4 @@
-package woz.model;
+package woz.model.character;
 
 public abstract class Character {
     private String name;

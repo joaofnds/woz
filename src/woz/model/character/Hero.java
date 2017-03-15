@@ -1,4 +1,7 @@
-package woz.model;
+package woz.model.character;
+
+import woz.model.Inventory;
+import woz.model.item.BaseItem;
 
 public class Hero extends Character {
     private Inventory inventory;
@@ -18,12 +21,12 @@ public class Hero extends Character {
         this.inventory = inventory;
     }
 
-    public Boolean addItemToInventory(Item item) {
-        return this.inventory.addItem(item);
+    public Boolean addItemToInventory(BaseItem baseItem) {
+        return this.inventory.addItem(baseItem);
     }
 
-    public Boolean removeItemFromInventory(Item item) {
-        return this.inventory.removeItem(item);
+    public Boolean removeItemFromInventory(BaseItem baseItem) {
+        return this.inventory.removeItem(baseItem);
     }
 
     public Integer getXP() {
@@ -38,7 +41,7 @@ public class Hero extends Character {
         this.getInventory().show();
     }
 
-    public Item searchInventory(String name) {
+    public BaseItem searchInventory(String name) {
         return this.inventory.getItem(name);
     }
 }

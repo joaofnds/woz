@@ -1,7 +1,7 @@
 package woz.engine;
 
-import woz.model.Hero;
-import woz.model.Item;
+import woz.model.character.Hero;
+import woz.model.item.BaseItem;
 
 /**
  *  This class is the main class of the "World of Zuul" application. 
@@ -50,12 +50,12 @@ public class Game
         lab = new Room("in a computing lab");
         office = new Room("in the computing admin office");
 
-        Item maca = new Item("maça", "Coma para ganhar energia", 1);
-        outside.getItems().add(maca);
-        theatre.getItems().add(maca);
-        pub.getItems().add(maca);
-        lab.getItems().add(maca);
-        office.getItems().add(maca);
+        BaseItem maca = new BaseItem("maça", "Coma para ganhar energia", 1);
+        outside.getBaseItems().add(maca);
+        theatre.getBaseItems().add(maca);
+        pub.getBaseItems().add(maca);
+        lab.getBaseItems().add(maca);
+        office.getBaseItems().add(maca);
 
         // initialise room exits
         outside.setExit("east", theatre);
@@ -234,7 +234,7 @@ public class Game
                 break;
             default:
                 boolean found = false;
-                for (Item i : player.getInventory().getItems()) {
+                for (BaseItem i : player.getInventory().getBaseItems()) {
                     if (i.getName().equals(command.getSecondWord())) {
                         System.out.println(i.toString());
                         found = true;
@@ -252,17 +252,17 @@ public class Game
             return;
         }
 
-        if (currentRoom.getItems().size() == 0) {
+        if (currentRoom.getBaseItems().size() == 0) {
             System.out.println("This room doesn't have any items!");
             return;
         }
 
         String item = command.getSecondWord();
-        for (Item i : currentRoom.getItems()) {
+        for (BaseItem i : currentRoom.getBaseItems()) {
             if (i.getName().equals(item)) {
                 if (player.addItemToInventory(i)) {
                     System.out.println("Item collected!");
-                    currentRoom.getItems().remove(i);
+                    currentRoom.getBaseItems().remove(i);
                 } else {
                     System.out.println("Couldn't collect item!");
                 }
@@ -281,7 +281,7 @@ public class Game
         
         String itemName = command.getSecondWord();
         boolean found = false;
-        for (Item i : this.player.getInventory().getItems()) {
+        for (BaseItem i : this.player.getInventory().getBaseItems()) {
             if (i.getName().equals(itemName)) {
                 player.removeItemFromInventory(i);
                 found = true;

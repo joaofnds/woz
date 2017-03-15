@@ -1,7 +1,7 @@
 package woz.engine;
 
-import woz.model.Enemy;
-import woz.model.Item;
+import woz.model.character.Enemy;
+import woz.model.item.BaseItem;
 
 import java.util.*;
 
@@ -23,7 +23,7 @@ public class Room
 {
     private String description;
     private HashMap<String, Room> exits;        // stores exits of this room.
-    private List<Item> items;
+    private List<BaseItem> baseItems;
     private List<Enemy> enemies;
 
     /**
@@ -36,7 +36,7 @@ public class Room
     {
         this.description = description;
         this.exits = new HashMap<String, Room>();
-        this.items = new ArrayList<Item>();
+        this.baseItems = new ArrayList<BaseItem>();
         this.enemies = new ArrayList<Enemy>();
     }
 
@@ -88,8 +88,8 @@ public class Room
         return exits.get(direction);
     }
 
-    public List<Item> getItems() {
-        return items;
+    public List<BaseItem> getBaseItems() {
+        return baseItems;
     }
 
     public List<Enemy> getEnemies() {
@@ -126,24 +126,24 @@ public class Room
     }
 
     public String getItemsString() {
-        if (this.items.size() == 0)
-            return "There's no items in this room.";
+        if (this.baseItems.size() == 0)
+            return "There's no baseItems in this room.";
 
         String s = "Items: ";
-        for (int i = 0; i < this.items.size(); i++) {
-            s += i+1 == this.items.size()
-                    ? this.items.get(i).getName() + "."
-                    : this.items.get(i).getName() + ", ";
+        for (int i = 0; i < this.baseItems.size(); i++) {
+            s += i+1 == this.baseItems.size()
+                    ? this.baseItems.get(i).getName() + "."
+                    : this.baseItems.get(i).getName() + ", ";
         }
         return s;
     }
 
     private String getItemsDetailsString() {
-        if (this.items.size() == 0)
-            return "There's no items in this room.";
+        if (this.baseItems.size() == 0)
+            return "There's no baseItems in this room.";
 
         String s = String.format("Items in this room:%n");
-        for (Item i : this.items) {
+        for (BaseItem i : this.baseItems) {
             s += String.format("%n\tName: %s%n", i.getName());
             s += String.format("\tDescription: %s%n", i.getDescription());
             s += String.format("\tSpace: %s%n", i.getSpace());

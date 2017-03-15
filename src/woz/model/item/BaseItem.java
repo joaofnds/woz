@@ -1,11 +1,11 @@
-package woz.model;
+package woz.model.item;
 
-public class Item {
+public class BaseItem {
     private String name;
     private String description;
     private Integer space;
 
-    public Item(String name, String description, Integer space) {
+    public BaseItem(String name, String description, Integer space) {
         this.name = name;
         this.description = description;
         this.space = space;

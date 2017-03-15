@@ -1,10 +1,10 @@
-package woz.model;
+package woz.model.character;
 
-/**
- * Created by joaofnds on 12/03/17.
- */
+import woz.model.item.BaseItem;
+
 public class Enemy extends Character{
 
+    private BaseItem droppableBaseItem;
 
     public Enemy(String name, Integer life, Integer level) {
         super(name, life, level);

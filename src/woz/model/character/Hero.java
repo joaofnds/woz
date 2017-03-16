@@ -101,6 +101,33 @@ public class Hero extends Character {
             System.out.println("\tShield: None");
     }
 
+    public void show(String command) {
+        if (command == null) {
+            System.out.println("Show what?");
+            return;
+        }
+
+        switch (command) {
+            case "inventory":
+                this.showInventory();
+                break;
+            case "status":
+                this.showStatus();
+                break;
+            default:
+                boolean found = false;
+                for (BaseItem i : this.getInventory().getItems()) {
+                    if (i.getName().equals(command)) {
+                        System.out.println(i.toString());
+                        found = true;
+                    }
+                }
+                if (!found)
+                    System.out.println("You don't have this item in your inventory");
+                break;
+        }
+    }
+
     public void equipItem(BaseItem item) {
         if (!this.getInventory().contains(item)) {
             System.out.println("You don't have this item in your inventory!");

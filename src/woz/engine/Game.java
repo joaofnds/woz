@@ -142,7 +142,7 @@ public class Game
                 look(command);
                 break;
             case CommandWords.SHOW:
-                show(command);
+                this.player.show(command.getSecondWord());
                 break;
             case CommandWords.COLLECT:
                 collectItem(command);
@@ -225,33 +225,6 @@ public class Game
                 break;
             default:
                 System.out.println("I can't look into that..");
-                break;
-        }
-    }
-
-    private void show(Command command) {
-        if (command.getSecondWord() == null) {
-            System.out.println("Show what?");
-            return;
-        }
-
-        switch (command.getSecondWord()) {
-            case "inventory":
-                this.player.showInventory();
-                break;
-            case "status":
-                this.player.showStatus();
-                break;
-            default:
-                boolean found = false;
-                for (BaseItem i : player.getInventory().getItems()) {
-                    if (i.getName().equals(command.getSecondWord())) {
-                        System.out.println(i.toString());
-                        found = true;
-                    }
-                }
-                if (!found)
-                    System.out.println("You don't have this item in your inventory");
                 break;
         }
     }

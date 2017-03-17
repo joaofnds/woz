@@ -93,7 +93,7 @@ public class Hero extends Character {
 
         switch (command) {
             case "inventory":
-                this.inventory.show();
+                this.getInventory().show();
                 break;
             case "status":
                 this.showStatus();

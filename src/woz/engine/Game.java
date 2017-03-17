@@ -148,7 +148,9 @@ public class Game
                 collectItem(command);
                 break;
             case CommandWords.PURGE:
-                purgeItem(command);
+                this.player
+                        .getInventory()
+                        .removeItem(command.getSecondWord());
                 break;
             case CommandWords.USE:
                 this.player.useItem(command.getSecondWord());
@@ -254,29 +256,6 @@ public class Game
         }
 
         System.out.printf("Couldn't find item '%s' in this room.%n", item);
-    }
-
-    private void purgeItem(Command command) {
-        if (command.getSecondWord() == null) {
-            System.out.println("You need to provide a item name");
-            return;
-        }
-        
-        String itemName = command.getSecondWord();
-        boolean found = false;
-        for (BaseItem i : this.player.getInventory().getItems()) {
-            if (i.getName().equals(itemName)) {
-                player.getInventory().removeItem(i);
-                found = true;
-                break;
-            }
-        }
-        
-        if (!found) {
-            System.out.printf("'%s' was not found in your inventory!%n", itemName);
-        } else {
-            System.out.printf("'%s' was purged from your inventory!%n", itemName);
-        }
     }
 
     private void equipItem(Command command) {

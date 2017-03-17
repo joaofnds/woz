@@ -63,6 +63,19 @@ public class Inventory {
         }
     }
 
+    public Boolean removeItem(String itemName) {
+        if (itemName == null) {
+            return false;
+        }
+        BaseItem item = this.getItem(itemName);
+        if (item == null) {
+            System.out.println("You don't have this item");
+            return false;
+        }
+
+        return this.removeItem(item);
+    }
+
     public Boolean isFull() {
         return Objects.equals(this.getLoad(), Inventory.MAX);
     }

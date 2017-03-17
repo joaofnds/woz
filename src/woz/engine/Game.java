@@ -243,7 +243,7 @@ public class Game
         String item = command.getSecondWord();
         for (BaseItem i : currentRoom.getItems()) {
             if (i.getName().equals(item)) {
-                if (player.addItemToInventory(i)) {
+                if (player.getInventory().addItem(i)) {
                     System.out.println("Item collected!");
                     currentRoom.getItems().remove(i);
                 } else {
@@ -266,7 +266,7 @@ public class Game
         boolean found = false;
         for (BaseItem i : this.player.getInventory().getItems()) {
             if (i.getName().equals(itemName)) {
-                player.removeItemFromInventory(i);
+                player.getInventory().removeItem(i);
                 found = true;
                 break;
             }

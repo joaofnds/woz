@@ -65,8 +65,10 @@ public class Inventory {
 
     public Boolean removeItem(String itemName) {
         if (itemName == null) {
+            System.out.println("Purge what?");
             return false;
         }
+
         BaseItem item = this.getItem(itemName);
         if (item == null) {
             System.out.println("You don't have this item");

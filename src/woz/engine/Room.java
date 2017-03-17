@@ -175,5 +175,27 @@ public class Room
     public void lookExits() {
         System.out.println(getExitString());
     }
+
+    public void look(String command) {
+        if (command == null) {
+            System.out.printf("%n%s%n", this.getLongDescription());
+            return;
+        }
+
+        switch (command) {
+            case "enemies":
+                this.lookEnemiesDetails();
+                break;
+            case "items":
+                this.lookItemsDetails();
+                break;
+            case "exits":
+                this.lookExits();
+                break;
+            default:
+                System.out.println("I can't look into that..");
+                break;
+        }
+    }
 }
 

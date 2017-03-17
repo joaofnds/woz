@@ -139,7 +139,8 @@ public class Game
                 wantToQuit = quit(command);
                 break;
             case CommandWords.LOOK:
-                look(command);
+                this.currentRoom
+                        .look(command.getSecondWord());
                 break;
             case CommandWords.SHOW:
                 this.player.show(command.getSecondWord());
@@ -209,28 +210,6 @@ public class Game
         }
     }
 
-    private void look(Command command) {
-        if (command.getSecondWord() == null) {
-            System.out.printf("%n%s%n", currentRoom.getLongDescription());
-            return;
-        }
-
-        switch (command.getSecondWord()) {
-            case "enemies":
-                currentRoom.lookEnemiesDetails();
-                break;
-            case "items":
-                currentRoom.lookItemsDetails();
-                break;
-            case "exits":
-                currentRoom.lookExits();
-                break;
-            default:
-                System.out.println("I can't look into that..");
-                break;
-        }
-    }
-
     private void collectItem(Command command) {
         if (command.getSecondWord() == null) {
             System.out.println("Collect what?");
@@ -256,10 +235,6 @@ public class Game
         }
 
         System.out.printf("Couldn't find item '%s' in this room.%n", item);
-    }
-
-    private void equipItem(Command command) {
-        System.out.println("Functionality not implemented yet");
     }
 
     /** 

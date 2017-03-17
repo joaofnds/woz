@@ -30,8 +30,8 @@ public abstract class Character {
         this.hp = (hp > Character.MAX_HP)
                 ? Character.MAX_HP
                 : (hp < 0)
-                    ? 0
-                    : hp;
+                ? 0
+                : hp;
     }
 
     public void increaseHp(Integer amount) {
@@ -50,8 +50,8 @@ public abstract class Character {
         this.level = (level > Character.MAX_LEVEL)
                 ? Character.MAX_LEVEL
                 : (level < 0)
-                    ? 0
-                    : level;
+                ? 0
+                : level;
     }
 
     public void increaseLevel() {
@@ -62,7 +62,10 @@ public abstract class Character {
         this.setLevel(this.level - 1);
     }
 
-    public void showStatus(){
+    public void showStatus() {
         System.out.println("Nome: " + name + "\nHp: " + hp + "\nLevel: " + level);
+        System.out.printf("- %s%n", this.name);
+        System.out.println("\tHP: " + this.hp);
+        System.out.println("\tLevel: " + this.level);
     }
 }

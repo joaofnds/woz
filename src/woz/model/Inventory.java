@@ -8,9 +8,8 @@ import java.util.Objects;
 
 public class Inventory {
     public static final Integer MAX = 1000;
-
-    private Integer load;
     List<BaseItem> items;
+    private Integer load;
 
     public Inventory() {
         this.items = new ArrayList<BaseItem>();
@@ -43,7 +42,7 @@ public class Inventory {
     }
 
     public Boolean addItem(BaseItem baseItem) {
-        if (this.load+ baseItem.getSpace() > Inventory.MAX) {
+        if (this.load + baseItem.getSpace() > Inventory.MAX) {
             System.out.println("Insufficient space on your inventory");
             return false;
         } else {

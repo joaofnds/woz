@@ -61,4 +61,8 @@ public abstract class Character {
     public void decreaseLevel() {
         this.setLevel(this.level - 1);
     }
+
+    public void showStatus(){
+        System.out.println("Nome: " + name + "\nHp: " + hp + "\nLevel: " + level);
+    }
 }

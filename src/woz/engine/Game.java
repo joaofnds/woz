@@ -2,6 +2,7 @@ package woz.engine;
 
 import woz.model.character.Hero;
 import woz.model.item.*;
+import woz.model.character.Enemy;
 
 /**
  *  This class is the main class of the "World of Zuul" application. 
@@ -50,6 +51,7 @@ public class Game
         lab = new Room("in a computing lab");
         office = new Room("in the computing admin office");
 
+        Enemy villain = new Enemy("gabriel", 5,5);
         Food maca = new Food("maça", "Coma para ganhar energia", 1, 4);
         Weapon sword = new Weapon("sword", "Kill'em all", 5, 20);
         Defense shield = new Defense("shield", "Defend'em all", 3, 15);
@@ -79,6 +81,9 @@ public class Game
         office.setExit("west", lab);
 
         currentRoom = outside;  // start game outside
+
+        //initialise room enemies
+        outside.getEnemies().add(villain);
     }
 
     /**
@@ -159,6 +164,9 @@ public class Game
             case CommandWords.EQUIP:
                 this.player.equipItem(command.getSecondWord());
                 break;
+            case CommandWords.ATTACK:
+                attack(command);
+                break;
             default:
                 break;
         }
@@ -235,6 +243,30 @@ public class Game
         }
 
         System.out.printf("Couldn't find item '%s' in this room.%n", item);
+    }
+
+    private void attack(Command command) {
+
+
+        if (command.getSecondWord() == null) {
+            System.out.println("You need to provide a target name");
+            return;
+        }
+        String target = command.getSecondWord();
+        for (Enemy i : currentRoom.getEnemies()) {
+            if (i.getName().equals(target)) {
+                if(i.getHp()==0){
+                    System.out.println("Target is dead");
+                    return;
+                }else{
+                    player.battle(i);
+                    return;
+                }
+            }
+
+        }
+        System.out.println("The character '"+ command.getSecondWord() +"' is not in the current room.");
+        return;
     }
 
     /** 

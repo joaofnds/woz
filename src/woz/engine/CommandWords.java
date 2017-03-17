@@ -22,7 +22,8 @@ public class CommandWords {
             CommandWords.USE,
             CommandWords.EQUIP,
             CommandWords.HELP,
-            CommandWords.QUIT
+            CommandWords.QUIT,
+            CommandWords.ATTACK
     };
 
     public static final String GO = "go";
@@ -34,6 +35,8 @@ public class CommandWords {
     public static final String EQUIP = "equip";
     public static final String HELP = "help";
     public static final String QUIT = "quit";
+    public static final String ATTACK = "attack";
+
 
     /**
      * Constructor - initialise the command words.

@@ -67,7 +67,7 @@ public class Hero extends Character {
                     break;
             }
     }
-
+    @Override
     public void showStatus() {
         System.out.printf("- %s:\n", this.getName());
         System.out.println("\tHP: " + this.getHp());
@@ -162,5 +162,20 @@ public class Hero extends Character {
 
     public boolean hasShield() {
         return this.shield != null;
+    }
+
+    public void battle(Enemy villain){
+        int damage = 0, defense = 0;
+        if (this.hasWeapon()){
+            damage= this.weapon.getDamageIncrease();
+        }
+        if (this.hasShield()){
+            defense = this.shield.getDefenseIncrease();
+        }
+        villain.decreaseHp(damage+getLevel());
+        decreaseHp(villain.getLevel()-defense);
+
+        showStatus();
+        villain.showStatus();
     }
 }

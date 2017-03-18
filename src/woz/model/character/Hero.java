@@ -8,6 +8,7 @@ public class Hero extends Character {
     private Integer XP;
     private Weapon weapon;
     private Defense shield;
+    private final Integer lvl_multiplier = 10;
 
     public Hero(String name, Integer hp) {
         super(name, hp, 1);
@@ -30,6 +31,15 @@ public class Hero extends Character {
 
     public void setXP(Integer XP) {
         this.XP = XP;
+    }
+
+    public void addXP(Integer XP) {
+        this.XP += XP;
+        if (this.XP >= (this.getLevel() * this.lvl_multiplier)) {
+            this.XP -= (this.getLevel() * this.lvl_multiplier);
+            this.increaseLevel();
+            System.out.println("*** LEVEL INCREASED! ***");
+        }
     }
 
     public void useItem(String itemName) {

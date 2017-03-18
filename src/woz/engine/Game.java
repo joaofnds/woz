@@ -256,7 +256,8 @@ public class Game {
         player.battle(enemy);
 
         if (enemy.isDead()) {
-            System.out.printf("You've killed %s%n", enemy.getName());
+            System.out.printf("You've killed %s and gained %d XP%n", enemy.getName(), enemy.getXPReward());
+            this.player.addXP(enemy.getXPReward());
             if (enemy.hasDroppableItem()) {
                 System.out.printf("%s dropped an item, look around in the room and see if you can find it!%n",
                         enemy.getName());

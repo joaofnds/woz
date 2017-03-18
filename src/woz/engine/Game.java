@@ -56,8 +56,10 @@ public class Game {
         Weapon sword = new Weapon("sword", "Kill'em all", 5, 20);
         Defense shield = new Defense("shield", "Defend'em all", 3, 15);
 
+        villain.setDroppableItem(sword);
+
         outside.getItems().add(maca);
-        outside.getItems().add(sword);
+//        outside.getItems().add(sword);
         outside.getItems().add(shield);
 
         theatre.getItems().add(maca);
@@ -142,8 +144,7 @@ public class Game {
                 wantToQuit = quit(command);
                 break;
             case CommandWords.LOOK:
-                this.currentRoom
-                        .look(command.getSecondWord());
+                this.currentRoom.look(command.getSecondWord());
                 break;
             case CommandWords.SHOW:
                 this.player.show(command.getSecondWord());
@@ -163,7 +164,7 @@ public class Game {
                 this.player.equipItem(command.getSecondWord());
                 break;
             case CommandWords.ATTACK:
-                attack(command);
+                attack(command.getSecondWord());
                 break;
             default:
                 break;
@@ -240,28 +241,28 @@ public class Game {
         System.out.printf("Couldn't find item '%s' in this room.%n", item);
     }
 
-    private void attack(Command command) {
-
-
-        if (command.getSecondWord() == null) {
-            System.out.println("You need to provide a target name");
+    private void attack(String enemyName) {
+        if (enemyName == null) {
+            System.out.println("You need to provide a enemy name");
             return;
         }
-        String target = command.getSecondWord();
-        for (Enemy i : currentRoom.getEnemies()) {
-            if (i.getName().equals(target)) {
-                if (i.getHp() == 0) {
-                    System.out.println("Target is dead");
-                    return;
-                } else {
-                    player.battle(i);
-                    return;
-                }
-            }
 
+        Enemy enemy = currentRoom.findEnemy(enemyName);
+        if (enemy == null) {
+            System.out.printf("The enemy '%s' is not in the current room.%n", enemyName);
+            return;
         }
-        System.out.println("The character '" + command.getSecondWord() + "' is not in the current room.");
-        return;
+
+        player.battle(enemy);
+
+        if (enemy.isDead()) {
+            System.out.printf("You've killed %s%n", enemy.getName());
+            if (enemy.hasDroppableItem()) {
+                System.out.printf("%s dropped an item, look around in the room and see if you can find it!%n",
+                        enemy.getName());
+                this.currentRoom.getItems().add(enemy.getDroppableItem());
+            }
+        }
     }
 
     /**

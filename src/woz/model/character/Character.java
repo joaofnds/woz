@@ -63,9 +63,12 @@ public abstract class Character {
     }
 
     public void showStatus() {
-        System.out.println("Nome: " + name + "\nHp: " + hp + "\nLevel: " + level);
-        System.out.printf("- %s%n", this.name);
+        System.out.printf("- %s:%n", this.name);
         System.out.println("\tHP: " + this.hp);
         System.out.println("\tLevel: " + this.level);
+    }
+
+    public Boolean isDead() {
+        return this.hp == 0;
     }
 }

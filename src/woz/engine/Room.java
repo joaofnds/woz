@@ -97,6 +97,15 @@ public class Room {
         return enemies;
     }
 
+    public Enemy findEnemy(String enemyName) {
+        for (Enemy e : this.enemies) {
+            if (e.getName().equals(enemyName))
+                return e;
+        }
+
+        return null;
+    }
+
     /**
      * Return a string describing the room's exits, for example
      * "Exits: north west".

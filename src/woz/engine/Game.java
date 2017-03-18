@@ -62,7 +62,9 @@ public class Game
         room2 = new Room("Room");
         room3 = new Room("Room");
 
-        Enemy villain = new Enemy("gabriel", 5,5);
+        Enemy Mob1 = new Enemy("ghost", 5,1);
+        Enemy Mob2 = new Enemy("demon", 15,4);
+        Enemy Mob3 = new Enemy("devil", 25,10);
         Food maca = new Food("maça", "Coma para ganhar energia", 1, 4);
         Weapon sword = new Weapon("sword", "Kill'em all", 5, 20);
         Defense shield = new Defense("shield", "Defend'em all", 3, 15);
@@ -124,22 +126,30 @@ public class Game
         currentRoom = hall;  // start game outside
 
         //initialise room enemies
-        hall.getEnemies().add(villain);
-        office.getEnemies().add(villain);
-        lavatory.getEnemies().add(villain);
-        cellar.getEnemies().add(villain);
-        kitchen.getEnemies().add(villain);
-        livingRoom.getEnemies().add(villain);
-        corridor.getEnemies().add(villain);
-        livingroom2.getEnemies().add(villain);
-        corridor2.getEnemies().add(villain);
-        library.getEnemies().add(villain);
-        storeroom.getEnemies().add(villain);
-        lab.getEnemies().add(villain);
-        dinnerRoom.getEnemies().add(villain);
-        room.getEnemies().add(villain);
-        room2.getEnemies().add(villain);
-        room3.getEnemies().add(villain);
+        hall.getEnemies().add(Mob1);
+        office.getEnemies().add(Mob1);
+        lavatory.getEnemies().add(Mob1);
+        cellar.getEnemies().add(Mob1);
+        kitchen.getEnemies().add(Mob1);
+        livingRoom.getEnemies().add(Mob1);
+        livingRoom.getEnemies().add(Mob2);
+        corridor.getEnemies().add(Mob2);
+        livingroom2.getEnemies().add(Mob1);
+        livingroom2.getEnemies().add(Mob2);
+        corridor2.getEnemies().add(Mob2);
+        library.getEnemies().add(Mob1);
+        storeroom.getEnemies().add(Mob2);
+        lab.getEnemies().add(Mob2);
+        dinnerRoom.getEnemies().add(Mob2);
+        room.getEnemies().add(Mob3);
+        room2.getEnemies().add(Mob3);
+        room3.getEnemies().add(Mob3);
+        room.getEnemies().add(Mob2);
+        room2.getEnemies().add(Mob2);
+        room3.getEnemies().add(Mob2);
+        room.getEnemies().add(Mob1);
+        room2.getEnemies().add(Mob1);
+        room3.getEnemies().add(Mob1);
 
 
     }

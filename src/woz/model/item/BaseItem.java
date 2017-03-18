@@ -1,18 +1,16 @@
 package woz.model.item;
 
 public class BaseItem {
-    public final static String[] validTypes = {
-        BaseItem.WEAPON,
-        BaseItem.DEFENSE,
-        BaseItem.FOOD,
-        BaseItem.POTION
-    };
-
     public final static String WEAPON = "weapon";
     public final static String DEFENSE = "defense";
     public final static String FOOD = "food";
     public final static String POTION = "potion";
-
+    public final static String[] validTypes = {
+            BaseItem.WEAPON,
+            BaseItem.DEFENSE,
+            BaseItem.FOOD,
+            BaseItem.POTION
+    };
     private String name;
     private String description;
     private Integer space;

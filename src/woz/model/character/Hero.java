@@ -8,6 +8,7 @@ public class Hero extends Character {
     private Integer XP;
     private Weapon weapon;
     private Defense shield;
+    private final Integer lvl_multiplier = 10;
 
     public Hero(String name, Integer hp) {
         super(name, hp, 1);
@@ -32,47 +33,55 @@ public class Hero extends Character {
         this.XP = XP;
     }
 
-    public void useItem(String itemName) {
-            if (itemName.length() == 0) {
-                System.out.println("Use what?");
-                return;
-            }
-
-            BaseItem item = this.getInventory().getItem(itemName);
-            if (item == null) {
-                System.out.println("You don't have this item!");
-                return;
-            }
-
-            int increase;
-
-            switch (item.getType()) {
-                case BaseItem.DEFENSE:
-                    System.out.println("This is a defense item");
-                    break;
-                case BaseItem.FOOD:
-                    increase = ((Food) item).getLifeIncrease();
-                    this.increaseHp(increase);
-                    this.getInventory().removeItem(item);
-                    break;
-                case BaseItem.POTION:
-                    increase = ((Potion) item).getLifeIncrease();
-                    this.increaseHp(increase);
-                    break;
-                case BaseItem.WEAPON:
-                    System.out.println("This is a weapon item");
-                    break;
-                default:
-                    System.out.println("Item type not recognized");
-                    break;
-            }
+    public void addXP(Integer XP) {
+        this.XP += XP;
+        if (this.XP >= (this.getLevel() * this.lvl_multiplier)) {
+            this.XP -= (this.getLevel() * this.lvl_multiplier);
+            this.increaseLevel();
+            System.out.println("*** LEVEL INCREASED! ***");
+        }
     }
+
+    public void useItem(String itemName) {
+        if (itemName.length() == 0) {
+            System.out.println("Use what?");
+            return;
+        }
+
+        BaseItem item = this.getInventory().getItem(itemName);
+        if (item == null) {
+            System.out.println("You don't have this item!");
+            return;
+        }
+
+        int increase;
+
+        switch (item.getType()) {
+            case BaseItem.DEFENSE:
+                System.out.println("This is a defense item");
+                break;
+            case BaseItem.FOOD:
+                increase = ((Food) item).getLifeIncrease();
+                this.increaseHp(increase);
+                this.getInventory().removeItem(item);
+                break;
+            case BaseItem.POTION:
+                increase = ((Potion) item).getLifeIncrease();
+                this.increaseHp(increase);
+                break;
+            case BaseItem.WEAPON:
+                System.out.println("This is a weapon item");
+                break;
+            default:
+                System.out.println("Item type not recognized");
+                break;
+        }
+    }
+
     @Override
     public void showStatus() {
-        System.out.printf("- %s:\n", this.getName());
-        System.out.println("\tHP: " + this.getHp());
+        super.showStatus();
         System.out.println("\tXP: " + this.getXP());
-        System.out.println("\tLevel: " + this.getLevel());
 
         if (this.hasWeapon())
             this.getWeapon().showStatus();
@@ -164,18 +173,20 @@ public class Hero extends Character {
         return this.shield != null;
     }
 
-    public void battle(Enemy villain){
-        int damage = 0, defense = 0;
-        if (this.hasWeapon()){
-            damage= this.weapon.getDamageIncrease();
+    public void battle(Enemy enemy) {
+        if (enemy.isDead()) {
+            System.out.println("Enemy is dead already.");
+            return;
         }
-        if (this.hasShield()){
-            defense = this.shield.getDefenseIncrease();
-        }
-        villain.decreaseHp(damage+getLevel());
-        decreaseHp(villain.getLevel()-defense);
+        int damage, defense;
 
-        showStatus();
-        villain.showStatus();
+        damage = this.hasWeapon() ? this.weapon.getDamageIncrease() : 0;
+        defense = this.hasShield() ? this.shield.getDefenseIncrease() : 0;
+
+        enemy.decreaseHp(damage + getLevel());
+        this.decreaseHp(enemy.getLevel() - defense);
+
+        this.showStatus();
+        enemy.showStatus();
     }
 }

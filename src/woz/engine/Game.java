@@ -1,37 +1,38 @@
 package woz.engine;
 
-import woz.model.character.Hero;
-import woz.model.item.*;
 import woz.model.character.Enemy;
+import woz.model.character.Hero;
+import woz.model.item.BaseItem;
+import woz.model.item.Defense;
+import woz.model.item.Food;
+import woz.model.item.Weapon;
 
 /**
- *  This class is the main class of the "World of Zuul" application. 
- *  "World of Zuul" is a very simple, text based adventure game.  Users 
- *  can walk around some scenery. That's all. It should really be extended 
- *  to make it more interesting!
- * 
- *  To play this game, create an instance of this class and call the "play"
- *  method.
- * 
- *  This main class creates and initialises all the others: it creates all
- *  rooms, creates the parser and starts the game.  It also evaluates and
- *  executes the commands that the parser returns.
- * 
- * @author  Michael Kolling and David J. Barnes
+ * This class is the main class of the "World of Zuul" application.
+ * "World of Zuul" is a very simple, text based adventure game.  Users
+ * can walk around some scenery. That's all. It should really be extended
+ * to make it more interesting!
+ * <p>
+ * To play this game, create an instance of this class and call the "play"
+ * method.
+ * <p>
+ * This main class creates and initialises all the others: it creates all
+ * rooms, creates the parser and starts the game.  It also evaluates and
+ * executes the commands that the parser returns.
+ *
+ * @author Michael Kolling and David J. Barnes
  * @version 2008.03.30
  */
 
-public class Game 
-{
+public class Game {
     private Parser parser;
     private Room currentRoom;
     private Hero player;
-        
+
     /**
      * Create the game and initialise its internal map.
      */
-    public Game() 
-    {
+    public Game() {
         this.player = new Hero("Joao", 90);
         createRooms();
         parser = new Parser();
@@ -64,7 +65,7 @@ public class Game
 
         Enemy Mob1 = new Enemy("ghost", 5,1);
         Enemy Mob2 = new Enemy("demon", 15,4);
-        Enemy Mob3 = new Enemy("devil", 25,10);
+        Enemy Mob3 = new Enemy("devil", 155,25);
         Food maca = new Food("maça", "Coma para ganhar energia", 1, 4);
         Weapon sword = new Weapon("sword", "Kill'em all", 5, 20);
         Defense shield = new Defense("shield", "Defend'em all", 3, 15);
@@ -82,6 +83,8 @@ public class Game
         lavatory.getItems().add(maca);
         corridor.getItems().add(maca);
         livingroom2.getItems().add(maca);
+
+        Mob1.setDroppableItem(sword);
         lab.getItems().add(maca);
         office.getItems().add(maca);
         corridor2.getItems().add(maca);
@@ -155,17 +158,16 @@ public class Game
     }
 
     /**
-     *  Main play routine.  Loops until end of play.
+     * Main play routine.  Loops until end of play.
      */
-    public void play() 
-    {            
+    public void play() {
         printWelcome();
 
         // Enter the main command loop.  Here we repeatedly read commands and
         // execute them until the game is over.
-                
+
         boolean finished = false;
-        while (! finished) {
+        while (!finished) {
             Command command = parser.getCommand();
             finished = processCommand(command);
         }
@@ -175,8 +177,7 @@ public class Game
     /**
      * Print out the opening message for the player.
      */
-    private void printWelcome()
-    {
+    private void printWelcome() {
         System.out.println();
         System.out.println("Welcome to the World of Zuul!");
         System.out.println("World of Zuul is a new, incredibly boring adventure game.");
@@ -187,14 +188,14 @@ public class Game
 
     /**
      * Given a command, process (that is: execute) the command.
+     *
      * @param command The command to be processed.
      * @return true If the command ends the game, false otherwise.
      */
-    private boolean processCommand(Command command) 
-    {
+    private boolean processCommand(Command command) {
         boolean wantToQuit = false;
 
-        if(command.isUnknown()) {
+        if (command.isUnknown()) {
             System.out.println("I don't know what you mean...");
             return false;
         }
@@ -212,8 +213,7 @@ public class Game
                 wantToQuit = quit(command);
                 break;
             case CommandWords.LOOK:
-                this.currentRoom
-                        .look(command.getSecondWord());
+                this.currentRoom.look(command.getSecondWord());
                 break;
             case CommandWords.SHOW:
                 this.player.show(command.getSecondWord());
@@ -233,7 +233,7 @@ public class Game
                 this.player.equipItem(command.getSecondWord());
                 break;
             case CommandWords.ATTACK:
-                attack(command);
+                attack(command.getSecondWord());
                 break;
             default:
                 break;
@@ -244,11 +244,10 @@ public class Game
 
     /**
      * Print out some help information.
-     * Here we print some stupid, cryptic message and a list of the 
+     * Here we print some stupid, cryptic message and a list of the
      * command words.
      */
-    private void printHelp(Command command)
-    {
+    private void printHelp(Command command) {
         if (command.getSecondWord() == null) {
             System.out.println("You are lost. You are alone. You wander");
             System.out.println("around at the university.");
@@ -260,13 +259,12 @@ public class Game
         }
     }
 
-    /** 
+    /**
      * Try to go to one direction. If there is an exit, enter the new
      * room, otherwise print an error message.
      */
-    private void goRoom(Command command) 
-    {
-        if(!command.hasSecondWord()) {
+    private void goRoom(Command command) {
+        if (!command.hasSecondWord()) {
             // if there is no second word, we don't know where to go...
             System.out.println("Go where?");
             return;
@@ -279,8 +277,7 @@ public class Game
 
         if (nextRoom == null) {
             System.out.println("There is no door!");
-        }
-        else {
+        } else {
             currentRoom = nextRoom;
             System.out.println(currentRoom.getLongDescription());
         }
@@ -313,41 +310,42 @@ public class Game
         System.out.printf("Couldn't find item '%s' in this room.%n", item);
     }
 
-    private void attack(Command command) {
-
-
-        if (command.getSecondWord() == null) {
-            System.out.println("You need to provide a target name");
+    private void attack(String enemyName) {
+        if (enemyName == null) {
+            System.out.println("You need to provide a enemy name");
             return;
         }
-        String target = command.getSecondWord();
-        for (Enemy i : currentRoom.getEnemies()) {
-            if (i.getName().equals(target)) {
-                if(i.getHp()==0){
-                    System.out.println("Target is dead");
-                    return;
-                }else{
-                    player.battle(i);
-                    return;
-                }
-            }
 
+        Enemy enemy = currentRoom.findEnemy(enemyName);
+        if (enemy == null) {
+            System.out.printf("The enemy '%s' is not in the current room.%n", enemyName);
+            return;
         }
-        System.out.println("The character '"+ command.getSecondWord() +"' is not in the current room.");
-        return;
+
+        player.battle(enemy);
+
+        if (enemy.isDead()) {
+            System.out.printf("You've killed %s and gained %d XP%n", enemy.getName(), enemy.getXPReward());
+            this.player.addXP(enemy.getXPReward());
+            if (enemy.hasDroppableItem()) {
+                System.out.printf("%s dropped an item, look around in the room and see if you can find it!%n",
+                        enemy.getName());
+                this.currentRoom.getItems().add(enemy.getDroppableItem());
+            }
+        }
     }
 
-    /** 
+    /**
      * "Quit" was entered. Check the rest of the command to see
      * whether we really quit the game.
+     *
      * @return true, if this command quits the game, false otherwise.
      */
     private boolean quit(Command command) {
-        if(command.hasSecondWord()) {
+        if (command.hasSecondWord()) {
             System.out.println("Quit what?");
             return false;
-        }
-        else {
+        } else {
             return true;  // signal that we want to quit
         }
     }

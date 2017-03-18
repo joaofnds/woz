@@ -12,6 +12,16 @@ package woz.engine;
  */
 
 public class CommandWords {
+    public static final String GO = "go";
+    public static final String LOOK = "look";
+    public static final String SHOW = "show";
+    public static final String COLLECT = "collect";
+    public static final String PURGE = "purge";
+    public static final String USE = "use";
+    public static final String EQUIP = "equip";
+    public static final String HELP = "help";
+    public static final String QUIT = "quit";
+    public static final String ATTACK = "attack";
     // a constant array that holds all valid command words
     private static final String[] validCommands = {
             CommandWords.GO,
@@ -26,38 +36,12 @@ public class CommandWords {
             CommandWords.ATTACK
     };
 
-    public static final String GO = "go";
-    public static final String LOOK = "look";
-    public static final String SHOW = "show";
-    public static final String COLLECT = "collect";
-    public static final String PURGE = "purge";
-    public static final String USE = "use";
-    public static final String EQUIP = "equip";
-    public static final String HELP = "help";
-    public static final String QUIT = "quit";
-    public static final String ATTACK = "attack";
-
 
     /**
      * Constructor - initialise the command words.
      */
     public CommandWords() {
         // nothing to do at the moment...
-    }
-
-    /**
-     * Check whether a given String is a valid command word.
-     *
-     * @return true if it is, false if it isn't.
-     */
-    public boolean isCommand(String aString) {
-        for (String command : validCommands) {
-            if (command.equals(aString)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     public static String getDescription(Command command) {
@@ -112,6 +96,21 @@ public class CommandWords {
                 s += "This isn't a command";
         }
         return s;
+    }
+
+    /**
+     * Check whether a given String is a valid command word.
+     *
+     * @return true if it is, false if it isn't.
+     */
+    public boolean isCommand(String aString) {
+        for (String command : validCommands) {
+            if (command.equals(aString)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

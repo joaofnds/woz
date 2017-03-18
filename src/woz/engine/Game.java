@@ -42,48 +42,106 @@ public class Game
      */
     private void createRooms()
     {
-        Room outside, theatre, pub, lab, office;
+        Room hall, livingRoom, office, library, lavatory, dinnerRoom, kitchen, cellar, storeroom, corridor, livingroom2, lab, corridor2, room, room2, room3;
       
         // create the rooms
-        outside = new Room("outside the main entrance of the university");
-        theatre = new Room("in a lecture theatre");
-        pub = new Room("in the campus pub");
-        lab = new Room("in a computing lab");
-        office = new Room("in the computing admin office");
+        hall = new Room("Entrance of the mansion");
+        livingRoom = new Room("Living Room");
+        office = new Room("Office");
+        library = new Room("Library");
+        lavatory = new Room("Lavatory");
+        dinnerRoom = new Room("Dinner Room");
+        kitchen = new Room("Kitchen");
+        cellar = new Room("Cellar");
+        storeroom = new Room("Store Room");
+        corridor = new Room("Corridor");
+        livingroom2 = new Room("Another Living Room");
+        lab = new Room("Lab");
+        corridor2 = new Room("Another Corridor");
+        room = new Room("Room");
+        room2 = new Room("Room");
+        room3 = new Room("Room");
 
         Enemy villain = new Enemy("gabriel", 5,5);
         Food maca = new Food("maça", "Coma para ganhar energia", 1, 4);
         Weapon sword = new Weapon("sword", "Kill'em all", 5, 20);
         Defense shield = new Defense("shield", "Defend'em all", 3, 15);
 
-        outside.getItems().add(maca);
-        outside.getItems().add(sword);
-        outside.getItems().add(shield);
+        hall.getItems().add(maca);
+        hall.getItems().add(sword);
+        hall.getItems().add(shield);
 
-        theatre.getItems().add(maca);
-        pub.getItems().add(maca);
+        dinnerRoom.getItems().add(maca);
+        livingRoom.getItems().add(maca);
+        kitchen.getItems().add(maca);
+        cellar.getItems().add(maca);
+        storeroom.getItems().add(maca);
+        library.getItems().add(maca);
+        lavatory.getItems().add(maca);
+        corridor.getItems().add(maca);
+        livingroom2.getItems().add(maca);
         lab.getItems().add(maca);
         office.getItems().add(maca);
+        corridor2.getItems().add(maca);
+        room.getItems().add(maca);
+        room2.getItems().add(maca);
+        room3.getItems().add(maca);
 
 
         // initialise room exits
-        outside.setExit("east", theatre);
-        outside.setExit("south", lab);
-        outside.setExit("west", pub);
+        hall.setExit("east", livingRoom);
+        hall.setExit("south", lavatory);
+        hall.setExit("north", office);
+        livingRoom.setExit("west", hall);
+        office.setExit("south", hall);
+        lavatory.setExit("north", hall);
+        livingRoom.setExit("north", library);
+        library.setExit("south", livingRoom);
+        livingRoom.setExit("east", dinnerRoom);
+        dinnerRoom.setExit("west", livingRoom);
+        dinnerRoom.setExit("east", kitchen);
+        kitchen.setExit("west", dinnerRoom);
+        kitchen.setExit("north", storeroom);
+        storeroom.setExit("south", kitchen);
+        kitchen.setExit("south", cellar);
+        cellar.setExit("north", kitchen);
+        livingRoom.setExit("south", corridor);
+        corridor.setExit("north", livingRoom);
+        livingroom2.setExit("north", corridor);
+        corridor.setExit("south", livingroom2);
+        livingroom2.setExit("south", corridor2);
+        livingroom2.setExit("east", lab);
+        lab.setExit("west", livingroom2);
+        corridor2.setExit("north", livingroom2);
+        corridor2.setExit("south", room);
+        corridor2.setExit("east", room2);
+        corridor2.setExit("west", room3);
+        room.setExit("north", corridor2);
+        room2.setExit("west", corridor2);
+        room3.setExit("east", corridor2);
 
-        theatre.setExit("west", outside);
 
-        pub.setExit("east", outside);
-
-        lab.setExit("north", outside);
-        lab.setExit("east", office);
-
-        office.setExit("west", lab);
-
-        currentRoom = outside;  // start game outside
+        currentRoom = hall;  // start game outside
 
         //initialise room enemies
-        outside.getEnemies().add(villain);
+        hall.getEnemies().add(villain);
+        office.getEnemies().add(villain);
+        lavatory.getEnemies().add(villain);
+        cellar.getEnemies().add(villain);
+        kitchen.getEnemies().add(villain);
+        livingRoom.getEnemies().add(villain);
+        corridor.getEnemies().add(villain);
+        livingroom2.getEnemies().add(villain);
+        corridor2.getEnemies().add(villain);
+        library.getEnemies().add(villain);
+        storeroom.getEnemies().add(villain);
+        lab.getEnemies().add(villain);
+        dinnerRoom.getEnemies().add(villain);
+        room.getEnemies().add(villain);
+        room2.getEnemies().add(villain);
+        room3.getEnemies().add(villain);
+
+
     }
 
     /**

@@ -91,6 +91,7 @@ public class Game {
         Weapon excalibur = new Weapon("excalibur", "Legendary sword", 700, 150);
         Defense shield = new Defense("shield", "Defend'em all", 50, 10);
         Defense shieldM = new Defense("largeshield", "A blessed shield", 60, 25);
+        Defense avalon = new Defense("avalon", "Legendary sheath with defensive and healing powers", 250, 125 );
         Potion hpPot = new Potion("potion", "Heal 25HP",15, 25);
         Life life = new Life();
 

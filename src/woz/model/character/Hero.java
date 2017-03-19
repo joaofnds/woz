@@ -2,6 +2,11 @@ package woz.model.character;
 
 import woz.model.Inventory;
 import woz.model.item.*;
+/**
+ * * Class of Hero type that stores values ​​and methods for same
+ * @author Gabriel Soares e João Fernandes
+ * @Version 1.00
+ */
 
 public class Hero extends Character {
     private final Integer lvl_multiplier = 10;
@@ -10,6 +15,11 @@ public class Hero extends Character {
     private Weapon weapon;
     private Defense shield;
 
+    /**
+     * Constructor of Hero
+     * @param name Hero's name
+     * @param hp Hero's hp
+     */
     public Hero(String name, Integer hp) {
         super(name, hp, 1);
         this.XP = 0;
@@ -17,22 +27,42 @@ public class Hero extends Character {
         this.weapon = null;
     }
 
+    /**
+     * Return hero's inventory
+     * @return hero's inventory
+     */
     public Inventory getInventory() {
         return inventory;
     }
 
+    /**
+     * Set hero's inventory
+     * @param inventory Hero's invetory
+     */
     public void setInventory(Inventory inventory) {
         this.inventory = inventory;
     }
 
+    /**
+     * Return hero's xp
+     * @return Hero's xp
+     */
     public Integer getXP() {
         return XP;
     }
 
+    /**
+     * Set hero's xp
+     * @param XP Hero's xp
+     */
     public void setXP(Integer XP) {
         this.XP = XP;
     }
 
+    /**
+     * Xp to be increased
+     * @param XP Earned xp
+     */
     public void addXP(Integer XP) {
         this.XP += XP;
         if (this.XP >= (this.getLevel() * this.lvl_multiplier)) {
@@ -42,6 +72,10 @@ public class Hero extends Character {
         }
     }
 
+    /**
+     * Use a inventory's item
+     * @param itemName Name of item to be used
+     */
     public void useItem(String itemName) {
         if (itemName.length() == 0) {
             System.out.println("Use what?");
@@ -83,6 +117,9 @@ public class Hero extends Character {
     }
 
     @Override
+    /**
+     * Print Hero's status
+     */
     public void showStatus() {
         super.showStatus();
         System.out.println("\tXP: " + this.getXP());
@@ -98,6 +135,10 @@ public class Hero extends Character {
             System.out.println("\tShield: None");
     }
 
+    /**
+     * Print inventory's or hero's status
+     * @param command Command that tells which status to showed
+     */
     public void show(String command) {
         if (command == null) {
             System.out.println("Show what?");
@@ -125,6 +166,10 @@ public class Hero extends Character {
         }
     }
 
+    /**
+     * Equip a item on hero
+     * @param item Item to be equipped
+     */
     public void equipItem(BaseItem item) {
         if (!this.getInventory().contains(item)) {
             System.out.println("You don't have this item in your inventory!");
@@ -156,27 +201,51 @@ public class Hero extends Character {
         }
     }
 
+    /**
+     * Equip a item on hero
+     * @param itemName Item to be equipped
+     */
     public void equipItem(String itemName) {
         BaseItem item = this.getInventory().getItem(itemName);
         this.equipItem(item);
     }
 
+    /**
+     * Return hero's weapon
+     * @return hero's weapon
+     */
     public Weapon getWeapon() {
         return weapon;
     }
 
+    /**
+     * Return hero's shield
+     * @return hero's shield
+     */
     public Defense getShield() {
         return shield;
     }
 
+    /**
+     * Check if hero has a weapon
+     * @return true if hero has a sword, false if hasn't
+     */
     public boolean hasWeapon() {
         return this.weapon != null;
     }
 
+    /**
+     * Check if hero has a shield
+     * @return true if hero has a shield, false if hasn't
+     */
     public boolean hasShield() {
         return this.shield != null;
     }
 
+    /**
+     * Battle with a enemy
+     * @param enemy Enemy to battle with
+     */
     public void battle(Enemy enemy) {
         if (enemy.isDead()) {
             System.out.println("Enemy is dead already.");

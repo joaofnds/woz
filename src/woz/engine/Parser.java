@@ -31,6 +31,7 @@ public class Parser {
     }
 
     /**
+     * Receives the user's command
      * @return The next command from the user.
      */
     public Command getCommand() {

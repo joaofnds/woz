@@ -53,6 +53,7 @@ public class Room {
     }
 
     /**
+     * Write room discretion.
      * @return The short description of the room
      * (the one that was defined in the constructor).
      */
@@ -89,14 +90,27 @@ public class Room {
         return exits.get(direction);
     }
 
+    /**
+     * Receive room items
+     * @return Returns the list of items
+     */
     public List<BaseItem> getItems() {
         return items;
     }
 
+    /**
+     * Receive room enemies
+     * @return Returns the list of enemies
+     */
     public List<Enemy> getEnemies() {
         return enemies;
     }
 
+    /**
+     * Check if the wanted enemy is in the room
+     * @param enemyName Receive enemy's name
+     * @return Returns enemy index in the list or null if the enemy is'nt in the room.
+     */
     public Enemy findEnemy(String enemyName) {
         for (Enemy e : this.enemies) {
             if (e.getName().equals(enemyName))
@@ -121,6 +135,10 @@ public class Room {
         return returnString;
     }
 
+    /**
+     * Return a string with the names of enemies in this room.
+     * @return Return enemies names or "Luckely there's no enemies in this room."
+     */
     public String getEnemiesString() {
         if (this.enemies.size() == 0)
             return "Luckely there's no enemies in this room.";
@@ -135,6 +153,10 @@ public class Room {
         return s;
     }
 
+    /**
+     * Retunr a string with the names of items in this room.
+     * @return Return items names or "There's no items in this room.".
+     */
     public String getItemsString() {
         if (this.items.size() == 0)
             return "There's no items in this room.";
@@ -148,6 +170,10 @@ public class Room {
         return s;
     }
 
+    /**
+     * String with details of each item in the room.
+     * @return Return a string with details of each item in the room.
+     */
     private String getItemsDetailsString() {
         if (this.items.size() == 0)
             return "There's no items in this room.";
@@ -161,6 +187,10 @@ public class Room {
         return s;
     }
 
+    /**
+     * String with details of each enemy in the room.
+     * @return Retunr a string with details of each enemy in the room.
+     */
     private String getEnemiesDetailsString() {
         if (this.enemies.size() == 0)
             return "Luckely there's no enemies in this room.";
@@ -174,18 +204,31 @@ public class Room {
         return s;
     }
 
+    /**
+     * Write items details
+     */
     public void lookItemsDetails() {
         System.out.println(getItemsDetailsString());
     }
 
+    /**
+     * Write items details
+     */
     public void lookEnemiesDetails() {
         System.out.println(getEnemiesDetailsString());
     }
 
+    /**
+     * Write all exits
+     */
     public void lookExits() {
         System.out.println(getExitString());
     }
 
+    /**
+     * Write the description of items or enemies or exits.
+     * @param command Command containing what the player wants to know about
+     */
     public void look(String command) {
         if (command == null) {
             System.out.printf("%n%s%n", this.getLongDescription());

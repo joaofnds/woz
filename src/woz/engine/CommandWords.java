@@ -40,10 +40,13 @@ public class CommandWords {
     /**
      * Constructor - initialise the command words.
      */
-    public CommandWords() {
-        // nothing to do at the moment...
-    }
+    public CommandWords() { }
 
+    /**
+     * Checks if the syntax of the command is correct
+     * @param command Command to be verified
+     * @return Returns the right format
+     */
     public static String getDescription(Command command) {
         String s = "";
         switch (command.getSecondWord()) {

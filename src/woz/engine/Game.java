@@ -2,10 +2,8 @@ package woz.engine;
 
 import woz.model.character.Enemy;
 import woz.model.character.Hero;
-import woz.model.item.BaseItem;
-import woz.model.item.Defense;
-import woz.model.item.Food;
-import woz.model.item.Weapon;
+import woz.model.character.Boss;
+import woz.model.item.*;
 
 /**
  * This class is the main class of the "World of Zuul" application.
@@ -30,7 +28,7 @@ public class Game {
     private Hero player;
 
     /**
-     * Create the game and initialise its internal map.
+     * Create the game and initialise its internal map and hero.
      */
     public Game() {
         this.player = new Hero("Joao", 90);
@@ -39,7 +37,9 @@ public class Game {
     }
 
     /**
-     * Create all the rooms and link their exits together.
+     * Create all the rooms and link their exits together
+     * Creates all enemies and places them in rooms.
+     * Creates all items and distributes between rooms and enemies
      */
     private void createRooms() {
         Room hall,
@@ -77,19 +77,34 @@ public class Game {
         room2 = new Room("Room");
         room3 = new Room("Room");
 
-        Enemy Mob1 = new Enemy("ghost", 5, 1);
-        Enemy Mob2 = new Enemy("demon", 15, 4);
-        Enemy Mob3 = new Enemy("devil", 155, 25);
-        Food maca = new Food("maça", "Coma para ganhar energia", 1, 4);
-        Weapon sword = new Weapon("sword", "Kill'em all", 5, 20);
-        Defense shield = new Defense("shield", "Defend'em all", 3, 15);
+        //Create enemies
+        Enemy Mob1 = new Enemy("ghost", 5, 3);
+        Enemy Mob2 = new Enemy("demon", 35, 20);
+        Enemy MobSh = new Enemy("devil", 155, 30);
+        Enemy MobSw = new Enemy("devil", 155, 30);
+        Boss boss = new Boss("mochila-de-criança", 200, 50);
 
+        //Create Items
+        Food maca = new Food("maça", "Coma para ganhar energia", 1, 4);
+        Weapon sword = new Weapon("sword", "A simple sword", 50, 10);
+        Weapon swordM = new Weapon("largesword", "A blessed sword", 200, 25);
+        Weapon excalibur = new Weapon("excalibur", "Legendary sword", 700, 150);
+        Defense shield = new Defense("shield", "Defend'em all", 50, 10);
+        Defense shieldM = new Defense("largeshield", "A blessed shield", 60, 25);
+        Potion hpPot = new Potion("potion", "Heal 25HP",15, 25);
+        Life life = new Life();
+
+        //Set room's items
         hall.getItems().add(maca);
-        hall.getItems().add(sword);
-        hall.getItems().add(shield);
+        hall.getItems().add(hpPot);
+        hall.getItems().add(life);
 
         dinnerRoom.getItems().add(maca);
+
+        livingRoom.getItems().add(sword);
+        livingRoom.getItems().add(shield);
         livingRoom.getItems().add(maca);
+
         kitchen.getItems().add(maca);
         cellar.getItems().add(maca);
         storeroom.getItems().add(maca);
@@ -97,8 +112,6 @@ public class Game {
         lavatory.getItems().add(maca);
         corridor.getItems().add(maca);
         livingroom2.getItems().add(maca);
-
-        Mob1.setDroppableItem(sword);
         lab.getItems().add(maca);
         office.getItems().add(maca);
         corridor2.getItems().add(maca);
@@ -158,17 +171,22 @@ public class Game {
         storeroom.getEnemies().add(Mob2);
         lab.getEnemies().add(Mob2);
         dinnerRoom.getEnemies().add(Mob2);
-        room.getEnemies().add(Mob3);
-        room2.getEnemies().add(Mob3);
-        room3.getEnemies().add(Mob3);
         room.getEnemies().add(Mob2);
         room2.getEnemies().add(Mob2);
         room3.getEnemies().add(Mob2);
         room.getEnemies().add(Mob1);
         room2.getEnemies().add(Mob1);
         room3.getEnemies().add(Mob1);
+        room.getEnemies().add(MobSh);
+        room2.getEnemies().add(MobSw);
+        room3.getEnemies().add(boss);
 
-
+        //Set Enemies items
+        Mob1.setDroppableItem(maca);
+        Mob2.setDroppableItem(hpPot);
+        MobSh.setDroppableItem(shieldM);
+        MobSw.setDroppableItem(swordM);
+        boss.setDroppableItem(excalibur);
     }
 
     /**
@@ -193,7 +211,7 @@ public class Game {
      */
     private void printWelcome() {
         System.out.println();
-        System.out.println("Welcome to the World of Zuul!");
+        System.out.println("Welcome to the New World of Zuul!");
         System.out.println("World of Zuul is a new, incredibly boring adventure game.");
         System.out.println("Type 'help' if you need help.");
         System.out.println();
@@ -257,14 +275,11 @@ public class Game {
     }
 
     /**
-     * Print out some help information.
-     * Here we print some stupid, cryptic message and a list of the
-     * command words.
+     * Explain the game scenario and Print the commands that can be used.
      */
     private void printHelp(Command command) {
         if (command.getSecondWord() == null) {
-            System.out.println("You are lost. You are alone. You wander");
-            System.out.println("around at the university.");
+            System.out.println("You are in a haunted mansion in search of adventure.");
             System.out.println();
             System.out.println("Your command words are:");
             parser.showCommands();
@@ -276,6 +291,7 @@ public class Game {
     /**
      * Try to go to one direction. If there is an exit, enter the new
      * room, otherwise print an error message.
+     * @param command Command containing the direction the player wants to go
      */
     private void goRoom(Command command) {
         if (!command.hasSecondWord()) {
@@ -297,6 +313,11 @@ public class Game {
         }
     }
 
+    /**
+     * Try to collect an item in the room.
+     * If you can not, tell them that does not have the item in the room.
+     * @param command Command containing the item to be collected
+     */
     private void collectItem(Command command) {
         if (command.getSecondWord() == null) {
             System.out.println("Collect what?");
@@ -324,6 +345,11 @@ public class Game {
         System.out.printf("Couldn't find item '%s' in this room.%n", item);
     }
 
+    /**
+     * Try to attack an enemy in the room
+     * If you can not, tell them that does not have the enemy in the room.
+     * @param enemyName Name of the enemy to be attacked
+     */
     private void attack(String enemyName) {
         if (enemyName == null) {
             System.out.println("You need to provide a enemy name");
@@ -351,6 +377,7 @@ public class Game {
 
         if (enemy.isDead()) {
             System.out.printf("You've killed %s and gained %d XP%n", enemy.getName(), enemy.getXPReward());
+            currentRoom.getEnemies().remove(enemy);
             this.player.addXP(enemy.getXPReward());
             if (enemy.hasDroppableItem()) {
                 System.out.printf("%s dropped an item, look around in the room and see if you can find it!%n",

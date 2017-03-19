@@ -1,6 +1,6 @@
 package woz.model.item;
 
-public class BaseItem {
+public abstract class BaseItem {
     public final static String WEAPON = "weapon";
     public final static String DEFENSE = "defense";
     public final static String FOOD = "food";

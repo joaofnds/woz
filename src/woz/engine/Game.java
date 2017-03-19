@@ -5,6 +5,8 @@ import woz.model.character.Enemy;
 import woz.model.character.Hero;
 import woz.model.item.*;
 
+import java.util.Scanner;
+
 /**
  * This class is the main class of the "World of Zuul" application.
  * "World of Zuul" is a very simple, text based adventure game.  Users
@@ -31,9 +33,11 @@ public class Game {
      * Create the game and initialise its internal map and hero.
      */
     public Game() {
-        this.player = new Hero("Joao", 90);
         createRooms();
         parser = new Parser();
+        System.out.printf("Hero name%n> ");
+        String heroName = (new Scanner(System.in)).nextLine().toLowerCase();
+        this.player = new Hero(heroName, 90);
     }
 
     /**

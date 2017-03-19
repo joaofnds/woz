@@ -70,7 +70,7 @@ public class Room {
     public String getLongDescription() {
         String s = "";
 
-        s += String.format("Your are %s%n", this.description);
+        s += String.format("Location: %s%n", this.description);
         s += String.format("%s%n", getExitString());
         s += String.format("%s%n", getItemsString());
         s += String.format("%s%n", getEnemiesString());

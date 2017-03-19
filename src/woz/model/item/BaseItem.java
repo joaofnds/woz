@@ -5,12 +5,16 @@ public class BaseItem {
     public final static String DEFENSE = "defense";
     public final static String FOOD = "food";
     public final static String POTION = "potion";
+    public final static String LIFE = "life";
+
     public final static String[] validTypes = {
             BaseItem.WEAPON,
             BaseItem.DEFENSE,
             BaseItem.FOOD,
-            BaseItem.POTION
+            BaseItem.POTION,
+            BaseItem.LIFE
     };
+
     private String name;
     private String description;
     private Integer space;

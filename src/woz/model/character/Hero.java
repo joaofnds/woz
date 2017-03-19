@@ -4,11 +4,11 @@ import woz.model.Inventory;
 import woz.model.item.*;
 
 public class Hero extends Character {
+    private final Integer lvl_multiplier = 10;
     private Inventory inventory;
     private Integer XP;
     private Weapon weapon;
     private Defense shield;
-    private final Integer lvl_multiplier = 10;
 
     public Hero(String name, Integer hp) {
         super(name, hp, 1);
@@ -62,15 +62,19 @@ public class Hero extends Character {
                 break;
             case BaseItem.FOOD:
                 increase = ((Food) item).getLifeIncrease();
-                this.increaseHp(increase);
-                this.getInventory().removeItem(item);
+                increaseHp(increase);
+                getInventory().removeItem(item);
                 break;
             case BaseItem.POTION:
                 increase = ((Potion) item).getLifeIncrease();
-                this.increaseHp(increase);
+                increaseHp(increase);
                 break;
             case BaseItem.WEAPON:
                 System.out.println("This is a weapon item");
+                break;
+            case BaseItem.LIFE:
+                setHp(Hero.MAX_HP);
+                getInventory().removeItem(item);
                 break;
             default:
                 System.out.println("Item type not recognized");

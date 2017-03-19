@@ -41,10 +41,24 @@ public class Game {
     /**
      * Create all the rooms and link their exits together.
      */
-    private void createRooms()
-    {
-        Room hall, livingRoom, office, library, lavatory, dinnerRoom, kitchen, cellar, storeroom, corridor, livingroom2, lab, corridor2, room, room2, room3;
-      
+    private void createRooms() {
+        Room hall,
+                livingRoom,
+                office,
+                library,
+                lavatory,
+                dinnerRoom,
+                kitchen,
+                cellar,
+                storeroom,
+                corridor,
+                livingroom2,
+                lab,
+                corridor2,
+                room,
+                room2,
+                room3;
+
         // create the rooms
         hall = new Room("Entrance of the mansion");
         livingRoom = new Room("Living Room");
@@ -63,9 +77,9 @@ public class Game {
         room2 = new Room("Room");
         room3 = new Room("Room");
 
-        Enemy Mob1 = new Enemy("ghost", 5,1);
-        Enemy Mob2 = new Enemy("demon", 15,4);
-        Enemy Mob3 = new Enemy("devil", 155,25);
+        Enemy Mob1 = new Enemy("ghost", 5, 1);
+        Enemy Mob2 = new Enemy("demon", 15, 4);
+        Enemy Mob3 = new Enemy("devil", 155, 25);
         Food maca = new Food("maça", "Coma para ganhar energia", 1, 4);
         Weapon sword = new Weapon("sword", "Kill'em all", 5, 20);
         Defense shield = new Defense("shield", "Defend'em all", 3, 15);
@@ -323,6 +337,17 @@ public class Game {
         }
 
         player.battle(enemy);
+
+        if (player.isDead()) {
+            if (player.getInventory().contains("life")) {
+                player.useItem("life");
+                System.out.println("You died! But don't worry, your life was restored because you had a Life in your inventory!");
+            } else {
+                System.out.println("You're dead!");
+                System.out.println(" --- GAME OVER ---");
+                return;
+            }
+        }
 
         if (enemy.isDead()) {
             System.out.printf("You've killed %s and gained %d XP%n", enemy.getName(), enemy.getXPReward());

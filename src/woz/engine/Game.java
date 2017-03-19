@@ -85,40 +85,40 @@ public class Game {
         Boss boss = new Boss("mochila-de-criança", 200, 50);
 
         //Create Items
-        Food maca = new Food("maça", "Coma para ganhar energia", 1, 4);
+        Food apple = new Food("apple", "Eat to heal 4HP", 1, 4);
         Weapon sword = new Weapon("sword", "A simple sword", 50, 10);
-        Weapon swordM = new Weapon("largesword", "A blessed sword", 200, 25);
+        Weapon swordM = new Weapon("large-sword", "A blessed sword", 200, 25);
         Weapon excalibur = new Weapon("excalibur", "Legendary sword", 700, 150);
         Defense shield = new Defense("shield", "Defend'em all", 50, 10);
-        Defense shieldM = new Defense("largeshield", "A blessed shield", 60, 25);
         Defense avalon = new Defense("avalon", "Legendary sheath with defensive and healing powers", 250, 125 );
-        Potion hpPot = new Potion("potion", "Heal 25HP",15, 25);
+        Defense shieldM = new Defense("large-shield", "A blessed shield", 60, 25);
+        Potion hpPot = new Potion("health-potion", "Heal 25HP",15, 25);
         Life life = new Life();
 
         //Set room's items
-        hall.getItems().add(maca);
+        hall.getItems().add(apple);
         hall.getItems().add(hpPot);
         hall.getItems().add(life);
 
-        dinnerRoom.getItems().add(maca);
+        dinnerRoom.getItems().add(apple);
 
         livingRoom.getItems().add(sword);
         livingRoom.getItems().add(shield);
-        livingRoom.getItems().add(maca);
+        livingRoom.getItems().add(apple);
 
-        kitchen.getItems().add(maca);
-        cellar.getItems().add(maca);
-        storeroom.getItems().add(maca);
-        library.getItems().add(maca);
-        lavatory.getItems().add(maca);
-        corridor.getItems().add(maca);
-        livingroom2.getItems().add(maca);
-        lab.getItems().add(maca);
-        office.getItems().add(maca);
-        corridor2.getItems().add(maca);
-        room.getItems().add(maca);
-        room2.getItems().add(maca);
-        room3.getItems().add(maca);
+        kitchen.getItems().add(apple);
+        cellar.getItems().add(apple);
+        storeroom.getItems().add(apple);
+        library.getItems().add(apple);
+        lavatory.getItems().add(apple);
+        corridor.getItems().add(apple);
+        livingroom2.getItems().add(apple);
+        lab.getItems().add(apple);
+        office.getItems().add(apple);
+        corridor2.getItems().add(apple);
+        room.getItems().add(apple);
+        room2.getItems().add(apple);
+        room3.getItems().add(apple);
 
 
         // initialise room exits
@@ -183,7 +183,7 @@ public class Game {
         room3.getEnemies().add(boss);
 
         //Set Enemies items
-        Mob1.setDroppableItem(maca);
+        Mob1.setDroppableItem(apple);
         Mob2.setDroppableItem(hpPot);
         MobSh.setDroppableItem(shieldM);
         MobSw.setDroppableItem(swordM);

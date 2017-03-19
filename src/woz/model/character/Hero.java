@@ -65,9 +65,13 @@ public class Hero extends Character {
      */
     public void addXP(Integer XP) {
         this.XP += XP;
-        if (this.XP >= (this.getLevel() * this.lvl_multiplier)) {
-            this.XP -= (this.getLevel() * this.lvl_multiplier);
-            this.increaseLevel();
+
+        if (getLevel() < Hero.MAX_LEVEL)
+            return;
+
+        if (this.XP >= (getLevel() * lvl_multiplier)) {
+            this.XP -= (getLevel() * lvl_multiplier);
+            increaseLevel();
             System.out.println("*** LEVEL INCREASED! ***");
         }
     }
@@ -251,10 +255,9 @@ public class Hero extends Character {
             System.out.println("Enemy is dead already.");
             return;
         }
-        int damage, defense;
 
-        damage = this.hasWeapon() ? this.weapon.getDamageIncrease() : 0;
-        defense = this.hasShield() ? this.shield.getDefenseIncrease() : 0;
+        int damage = this.hasWeapon() ? this.weapon.getDamageIncrease() : 0,
+            defense = this.hasShield() ? this.shield.getDefenseIncrease() : 0;
 
         enemy.decreaseHp(damage + getLevel());
         this.decreaseHp(enemy.getLevel() - defense);

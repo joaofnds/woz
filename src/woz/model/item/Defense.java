@@ -45,6 +45,6 @@ public class Defense extends BaseItem {
         System.out.println("\t\tName: " + this.getName());
         System.out.println("\t\tDescription: " + this.getDescription());
         System.out.println("\t\tSpace: " + this.getSpace());
-        System.out.printf("\t\tDefense Increase: %d%%%n", this.getDefenseIncrease());
+        System.out.printf("\t\tDefense Increase: +%d%n", this.getDefenseIncrease());
     }
 }

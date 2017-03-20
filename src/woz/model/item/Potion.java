@@ -1,11 +1,11 @@
 package woz.model.item;
 
 /**
- * Class of Potion type that stores values ​​and methods for same
+ * Class of type Potion that stores values ​​and methods for same
  * @author Gabriel Soares e João Fernandes
  * @Version 1.00
  */
-public class Potion extends BaseItem {
+public class Potion extends InventoryItem {
 
 
     private Integer lifeIncrease;
@@ -18,7 +18,7 @@ public class Potion extends BaseItem {
      * @param lifeIncrease Amount of life to be increased
      */
     public Potion(String name, String description, Integer space, Integer lifeIncrease) {
-        super(name, description, space, BaseItem.POTION);
+        super(name, description, space, InventoryItem.POTION);
         this.lifeIncrease = lifeIncrease;
     }
 

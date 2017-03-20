@@ -1,23 +1,23 @@
 package woz.model.item;
 
 /**
- * Class of Weapon type that stores values ​​and methods for same
+ * Class of type Weapon that stores values ​​and methods for same
  * @author Gabriel Soares e João Fernandes
  * @Version 1.00
  */
-public class Weapon extends BaseItem {
+public class Weapon extends InventoryItem {
 
     private Integer damageIncrease;
 
     /**
      * Constructor of weapon items
      * @param name weapon' name
-     * @param description weapon' description
+     * @param description weapon's description
      * @param space Space occupied by weapon
      * @param damageIncrease weapon's damage to be increased
      */
     public Weapon(String name, String description, Integer space, Integer damageIncrease) {
-        super(name, description, space, BaseItem.WEAPON);
+        super(name, description, space, InventoryItem.WEAPON);
         this.damageIncrease = damageIncrease;
     }
 

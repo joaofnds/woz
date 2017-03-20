@@ -1,7 +1,7 @@
 package woz.model.character;
 
 /**
- ** Class of Character type that stores values ​​and methods for same
+ ** Class of type Character that stores values ​​and methods for same
  * @author Gabriel Soares e João Fernandes
  * @Version 1.00
  */

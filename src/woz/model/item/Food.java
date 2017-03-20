@@ -1,11 +1,12 @@
 package woz.model.item;
 
+
 /**
- * Class of Food type that stores values ​​and methods for same
+ * Class of type Food that stores values ​​and methods for same
  * @author Gabriel Soares e João Fernandes
  * @Version 1.00
  */
-public class Food extends BaseItem {
+public class Food extends InventoryItem {
 
     private Integer lifeIncrease;
 
@@ -17,7 +18,7 @@ public class Food extends BaseItem {
      * @param lifeIncrease Amount of life to be increased
      */
     public Food(String name, String description, Integer space, Integer lifeIncrease) {
-        super(name, description, space, BaseItem.FOOD);
+        super(name, description, space, InventoryItem.FOOD);
         this.lifeIncrease = lifeIncrease;
     }
 

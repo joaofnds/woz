@@ -1,7 +1,7 @@
 package woz.engine;
 
 import woz.model.character.Enemy;
-import woz.model.item.BaseItem;
+import woz.model.item.InventoryItem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,7 +25,7 @@ import java.util.Set;
 public class Room {
     private String description;
     private HashMap<String, Room> exits;        // stores exits of this room.
-    private List<BaseItem> items;
+    private List<InventoryItem> items;
     private List<Enemy> enemies;
 
     /**
@@ -38,7 +38,7 @@ public class Room {
     public Room(String description) {
         this.description = description;
         this.exits = new HashMap<String, Room>();
-        this.items = new ArrayList<BaseItem>();
+        this.items = new ArrayList<InventoryItem>();
         this.enemies = new ArrayList<Enemy>();
     }
 
@@ -94,7 +94,7 @@ public class Room {
      * Receive room items
      * @return Returns the list of items
      */
-    public List<BaseItem> getItems() {
+    public List<InventoryItem> getItems() {
         return items;
     }
 
@@ -179,7 +179,7 @@ public class Room {
             return "There's no items in this room.";
 
         String s = String.format("Items in this room:%n");
-        for (BaseItem i : this.items) {
+        for (InventoryItem i : this.items) {
             s += String.format("%n\tName: %s%n", i.getName());
             s += String.format("\tDescription: %s%n", i.getDescription());
             s += String.format("\tSpace: %s%n", i.getSpace());

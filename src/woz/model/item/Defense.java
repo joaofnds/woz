@@ -1,11 +1,11 @@
 package woz.model.item;
 
 /**
- * Class of Defense type that stores values ​​and methods for same
+ * Class of type Defense that stores values ​​and methods for same
  * @author Gabriel Soares e João Fernandes
  * @Version 1.00
  */
-public class Defense extends BaseItem {
+public class Defense extends InventoryItem {
 
     private Integer defenseIncrease;
 
@@ -17,7 +17,7 @@ public class Defense extends BaseItem {
      * @param defenseIncrease Defense's items amount of defense to be increased
      */
     public Defense(String name, String description, Integer space, Integer defenseIncrease) {
-        super(name, description, space, BaseItem.DEFENSE);
+        super(name, description, space, InventoryItem.DEFENSE);
         this.defenseIncrease = defenseIncrease;
     }
 

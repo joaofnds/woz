@@ -1,17 +1,20 @@
 package woz.model.character;
 
-import woz.model.item.BaseItem;
+import woz.model.item.InventoryItem;
+import woz.model.item.Defense;
+import woz.model.item.Weapon;
 
 /**
- * Class of Enemy type that stores values ​​and methods for same
+ * Class of type Enemy that stores values ​​and methods for same
  * @author Gabriel Soares e João Fernandes
  * @Version 1.00
  */
 
 public class Enemy extends Character {
 
-    public static final Integer XP_REWARD_MULTIPLIER = 2;
-    private BaseItem droppableItem;
+    private final Integer XP_REWARD_MULTIPLIER = 2;
+    private final Integer COIN_REWARD = 200;
+    private InventoryItem droppableItem;
 
     /**
      * Constructor of Enemy
@@ -27,7 +30,7 @@ public class Enemy extends Character {
      * Drop enemy's item
      * @return Item to be dropped
      */
-    public BaseItem getDroppableItem() {
+    public InventoryItem getDroppableItem() {
         return droppableItem;
     }
 
@@ -35,7 +38,19 @@ public class Enemy extends Character {
      * Set Item to be dropped
      * @param droppableItem Enemy's item
      */
-    public void setDroppableItem(BaseItem droppableItem) {
+    public void setDroppableItem(InventoryItem droppableItem) {
+        if (droppableItem.getType().equals(InventoryItem.WEAPON) // If i'm setting a weapon
+                && ((Weapon) droppableItem).getDamageIncrease() > 50) { // And this weapon has more than 50 points of damage increase
+                System.out.println("You cannot set a weapon this powerful to a normal enemy");
+                return;
+        }
+
+        if (droppableItem.getType().equals(InventoryItem.DEFENSE) // If i'm setting a shield
+                && ((Defense) droppableItem).getDefenseIncrease() > 50 ) { // And this shield has more than 50 points of defense increase
+            System.out.println("You cannot set a shield this powerful to a normal enemy");
+            return;
+        }
+
         this.droppableItem = droppableItem;
     }
 
@@ -48,10 +63,18 @@ public class Enemy extends Character {
     }
 
     /**
-     * Returns xp to be increased to those who defeated
+     * Returns xp to be increased to those who defeated the enemy
      * @return Return Xp to be increased
      */
     public Integer getXPReward() {
-        return this.getLevel() * Enemy.XP_REWARD_MULTIPLIER;
+        return this.getLevel() * XP_REWARD_MULTIPLIER;
+    }
+
+    /**
+     * Get coin to be earned to those who defeated the enemy
+     * @return coin to be earned
+     */
+    public Integer getCoinReward() {
+        return COIN_REWARD;
     }
 }

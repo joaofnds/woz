@@ -1,9 +1,11 @@
 package woz.engine;
 
+import woz.model.character.Boss;
 import woz.model.character.Enemy;
 import woz.model.character.Hero;
-import woz.model.character.Boss;
 import woz.model.item.*;
+
+import java.util.Scanner;
 
 /**
  * This class is the main class of the "World of Zuul" application.
@@ -31,9 +33,11 @@ public class Game {
      * Create the game and initialise its internal map and hero.
      */
     public Game() {
-        this.player = new Hero("Joao", 90);
         createRooms();
         parser = new Parser();
+        System.out.printf("Hero name%n> ");
+        String heroName = (new Scanner(System.in)).nextLine().toLowerCase();
+        this.player = new Hero(heroName, 90);
     }
 
     /**
@@ -92,7 +96,7 @@ public class Game {
         Defense shield = new Defense("shield", "Defend'em all", 50, 10);
         Defense avalon = new Defense("avalon", "Legendary sheath with defensive and healing powers", 250, 125 );
         Defense shieldM = new Defense("large-shield", "A blessed shield", 60, 25);
-        Potion hpPot = new Potion("health-potion", "Heal 25HP",15, 25);
+        Potion hpPot = new Potion("health-potion", "Heal 25HP", 15, 25);
         Life life = new Life();
 
         //Set room's items
@@ -187,7 +191,7 @@ public class Game {
         Mob2.setDroppableItem(hpPot);
         MobSh.setDroppableItem(shieldM);
         MobSw.setDroppableItem(swordM);
-        boss.setDroppableItem(excalibur);
+        boss.setDroppableWeapon(excalibur);
     }
 
     /**
@@ -292,6 +296,7 @@ public class Game {
     /**
      * Try to go to one direction. If there is an exit, enter the new
      * room, otherwise print an error message.
+     *
      * @param command Command containing the direction the player wants to go
      */
     private void goRoom(Command command) {
@@ -317,6 +322,7 @@ public class Game {
     /**
      * Try to collect an item in the room.
      * If you can not, tell them that does not have the item in the room.
+     *
      * @param command Command containing the item to be collected
      */
     private void collectItem(Command command) {
@@ -331,7 +337,7 @@ public class Game {
         }
 
         String item = command.getSecondWord();
-        for (BaseItem i : currentRoom.getItems()) {
+        for (InventoryItem i : currentRoom.getItems()) {
             if (i.getName().equals(item)) {
                 if (player.getInventory().addItem(i)) {
                     System.out.println("Item collected!");
@@ -349,6 +355,7 @@ public class Game {
     /**
      * Try to attack an enemy in the room
      * If you can not, tell them that does not have the enemy in the room.
+     *
      * @param enemyName Name of the enemy to be attacked
      */
     private void attack(String enemyName) {
@@ -377,14 +384,41 @@ public class Game {
         }
 
         if (enemy.isDead()) {
-            System.out.printf("You've killed %s and gained %d XP%n", enemy.getName(), enemy.getXPReward());
+            System.out.printf("You've killed %s and gained %d XP and %d coins!%n", enemy.getName(),
+                    enemy.getXPReward(),
+                    enemy.getCoinReward());
+
             currentRoom.getEnemies().remove(enemy);
-            this.player.addXP(enemy.getXPReward());
+
+            ((CoinBag)this.player.getInventory().getItem(InventoryItem.COIN_BAG)).addCoins(enemy.getCoinReward()); // Adds coins as reward for the player
+            this.player.addXP(enemy.getXPReward()); // Adds XP as reward for the player
+
+            this.player.getInventory().updateLoad();
+
+            boolean hasDropped = false;
+
+            if (enemy.getClass().getSimpleName().equals("Boss")) {
+                if (((Boss) enemy).hasDroppableWeapon()) {
+                    currentRoom.getItems().add(((Boss) enemy).getDroppableWeapon());
+                    hasDropped = true;
+                }
+
+                if (((Boss) enemy).hasDroppableLife()) {
+                    currentRoom.getItems().add(((Boss) enemy).getDroppableLife());
+                    hasDropped = true;
+                }
+
+
+            }
+
             if (enemy.hasDroppableItem()) {
+                this.currentRoom.getItems().add(enemy.getDroppableItem());
+                hasDropped = true;
+            }
+
+            if (hasDropped)
                 System.out.printf("%s dropped an item, look around in the room and see if you can find it!%n",
                         enemy.getName());
-                this.currentRoom.getItems().add(enemy.getDroppableItem());
-            }
         }
     }
 

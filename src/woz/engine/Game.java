@@ -336,7 +336,7 @@ public class Game {
         }
 
         String item = command.getSecondWord();
-        for (BaseItem i : currentRoom.getItems()) {
+        for (InventoryItem i : currentRoom.getItems()) {
             if (i.getName().equals(item)) {
                 if (player.getInventory().addItem(i)) {
                     System.out.println("Item collected!");
@@ -383,11 +383,14 @@ public class Game {
         }
 
         if (enemy.isDead()) {
-            System.out.printf("You've killed %s and gained %d XP%n", enemy.getName(), enemy.getXPReward());
+            System.out.printf("You've killed %s and gained %d XP and %d coins!%n", enemy.getName(),
+                    enemy.getXPReward(),
+                    enemy.getCoinReward());
 
             currentRoom.getEnemies().remove(enemy);
 
-            this.player.addXP(enemy.getXPReward());
+            ((CoinBag)this.player.getInventory().getItem(InventoryItem.COIN_BAG)).addCoins(enemy.getCoinReward()); // Adds coins as reward for the player
+            this.player.addXP(enemy.getXPReward()); // Adds XP as reward for the player
 
             boolean hasDropped = false;
 

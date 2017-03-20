@@ -15,6 +15,9 @@ public class Hero extends Character {
         this.XP = 0;
         this.inventory = new Inventory();
         this.weapon = null;
+
+        this.inventory.addItem(new CoinBag(InventoryItem.COIN_BAG,
+                "A Magic coin bag that automatically grows as you insert coins."));
     }
 
     public Inventory getInventory() {
@@ -52,7 +55,7 @@ public class Hero extends Character {
             return;
         }
 
-        BaseItem item = this.getInventory().getItem(itemName);
+        InventoryItem item = this.getInventory().getItem(itemName);
         if (item == null) {
             System.out.println("You don't have this item!");
             return;
@@ -61,22 +64,22 @@ public class Hero extends Character {
         int increase;
 
         switch (item.getType()) {
-            case BaseItem.DEFENSE:
+            case InventoryItem.DEFENSE:
                 System.out.println("This is a defense item");
                 break;
-            case BaseItem.FOOD:
+            case InventoryItem.FOOD:
                 increase = ((Food) item).getLifeIncrease();
                 increaseHp(increase);
                 getInventory().removeItem(item);
                 break;
-            case BaseItem.POTION:
+            case InventoryItem.POTION:
                 increase = ((Potion) item).getLifeIncrease();
                 increaseHp(increase);
                 break;
-            case BaseItem.WEAPON:
+            case InventoryItem.WEAPON:
                 System.out.println("This is a weapon item");
                 break;
-            case BaseItem.LIFE:
+            case InventoryItem.LIFE:
                 setHp(Hero.MAX_HP);
                 getInventory().removeItem(item);
                 break;
@@ -117,7 +120,7 @@ public class Hero extends Character {
                 break;
             default:
                 boolean found = false;
-                for (BaseItem i : this.getInventory().getItems()) {
+                for (InventoryItem i : this.getInventory().getItems()) {
                     if (i.getName().equals(command)) {
                         System.out.println(i.toString());
                         found = true;
@@ -129,14 +132,14 @@ public class Hero extends Character {
         }
     }
 
-    public void equipItem(BaseItem item) {
+    public void equipItem(InventoryItem item) {
         if (!this.getInventory().contains(item)) {
             System.out.println("You don't have this item in your inventory!");
             return;
         }
 
         switch (item.getType()) {
-            case BaseItem.WEAPON:
+            case InventoryItem.WEAPON:
                 if (this.hasWeapon()) {
                     if (!this.getInventory().addItem(this.weapon))
                         return;
@@ -146,7 +149,7 @@ public class Hero extends Character {
                 this.weapon = (Weapon) item;
                 break;
 
-            case BaseItem.DEFENSE:
+            case InventoryItem.DEFENSE:
                 if (this.hasShield()) {
                     if (!this.getInventory().addItem(this.shield))
                         return;
@@ -161,7 +164,7 @@ public class Hero extends Character {
     }
 
     public void equipItem(String itemName) {
-        BaseItem item = this.getInventory().getItem(itemName);
+        InventoryItem item = this.getInventory().getItem(itemName);
         this.equipItem(item);
     }
 

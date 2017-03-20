@@ -1,11 +1,11 @@
 package woz.model.item;
 
-public class Weapon extends BaseItem {
+public class Weapon extends InventoryItem {
 
     private Integer damageIncrease;
 
     public Weapon(String name, String description, Integer space, Integer damageIncrease) {
-        super(name, description, space, BaseItem.WEAPON);
+        super(name, description, space, InventoryItem.WEAPON);
         this.damageIncrease = damageIncrease;
     }
 

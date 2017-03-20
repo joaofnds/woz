@@ -1,26 +1,19 @@
 package woz.model.item;
 
-public abstract class BaseItem {
+public abstract class InventoryItem {
     public final static String WEAPON = "weapon";
     public final static String DEFENSE = "defense";
     public final static String FOOD = "food";
     public final static String POTION = "potion";
     public final static String LIFE = "life";
-
-    public final static String[] validTypes = {
-            BaseItem.WEAPON,
-            BaseItem.DEFENSE,
-            BaseItem.FOOD,
-            BaseItem.POTION,
-            BaseItem.LIFE
-    };
+    public final static String COIN_BAG = "coin-bag";
 
     private String name;
     private String description;
     private Integer space;
     private String type;
 
-    public BaseItem(String name, String description, Integer space, String type) {
+    public InventoryItem(String name, String description, Integer space, String type) {
         this.name = name;
         this.description = description;
         this.space = space;

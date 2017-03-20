@@ -1,11 +1,11 @@
 package woz.model.item;
 
-public class Food extends BaseItem {
+public class Food extends InventoryItem {
 
     private Integer lifeIncrease;
 
     public Food(String name, String description, Integer space, Integer lifeIncrease) {
-        super(name, description, space, BaseItem.FOOD);
+        super(name, description, space, InventoryItem.FOOD);
         this.lifeIncrease = lifeIncrease;
     }
 

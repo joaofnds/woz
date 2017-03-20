@@ -1,12 +1,12 @@
 package woz.model.character;
 
-import woz.model.item.BaseItem;
 import woz.model.item.Life;
 import woz.model.item.Weapon;
 
 public class Boss extends Enemy {
 
     private final Integer XP_REWARD_MULTIPLIER = 5;
+    private final Integer COIN_REWARD = 1000;
 
     private Weapon droppableWeapon;
     private Life droppableLife;
@@ -47,5 +47,9 @@ public class Boss extends Enemy {
 
     public Integer getXPReward() {
         return this.getLevel() * XP_REWARD_MULTIPLIER;
+    }
+
+    public Integer getCoinReward() {
+        return COIN_REWARD;
     }
 }

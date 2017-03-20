@@ -1,6 +1,6 @@
 package woz.model;
 
-import woz.model.item.BaseItem;
+import woz.model.item.InventoryItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,11 +8,11 @@ import java.util.Objects;
 
 public class Inventory {
     public static final Integer MAX = 1000;
-    List<BaseItem> items;
+    List<InventoryItem> items;
     private Integer load;
 
     public Inventory() {
-        this.items = new ArrayList<BaseItem>();
+        this.items = new ArrayList<InventoryItem>();
         this.load = 0;
     }
 
@@ -24,40 +24,45 @@ public class Inventory {
         this.load = load;
     }
 
-    public List<BaseItem> getItems() {
+    public List<InventoryItem> getItems() {
         return items;
     }
 
-    public void setItems(List<BaseItem> items) {
+    public void setItems(List<InventoryItem> items) {
         this.items = items;
     }
 
-    public BaseItem getItem(String name) {
-        for (BaseItem baseItem : this.getItems()) {
-            if (baseItem.getName().toLowerCase().equals(name)) {
-                return baseItem;
+    public InventoryItem getItem(String name) {
+        for (InventoryItem inventoryItem : this.getItems()) {
+            if (inventoryItem.getName().toLowerCase().equals(name)) {
+                return inventoryItem;
             }
         }
         return null;
     }
 
-    public Boolean addItem(BaseItem baseItem) {
-        if (this.load + baseItem.getSpace() > Inventory.MAX) {
+    public Boolean addItem(InventoryItem inventoryItem) {
+        if (this.load + inventoryItem.getSpace() > Inventory.MAX) {
             System.out.println("Insufficient space on your inventory");
             return false;
         } else {
-            this.items.add(baseItem);
-            this.load += baseItem.getSpace();
+            this.items.add(inventoryItem);
+            this.load += inventoryItem.getSpace();
             return true;
         }
     }
 
-    public Boolean removeItem(BaseItem baseItem) {
-        if (!this.getItems().contains(baseItem)) {
+    public Boolean removeItem(InventoryItem inventoryItem) {
+        if (inventoryItem.getType().equals(InventoryItem.COIN_BAG)) {
+            System.out.println("Why would you do that??? This item is permanent, you cannot remove it!");
+            return false;
+        }
+
+        if (!this.getItems().contains(inventoryItem)) {
             return false;
         } else {
-            this.items.remove(baseItem);
-            this.load -= baseItem.getSpace();
+            this.items.remove(inventoryItem);
+            this.load -= inventoryItem.getSpace();
             return true;
         }
     }
@@ -68,7 +73,7 @@ public class Inventory {
             return false;
         }
 
-        BaseItem item = this.getItem(itemName);
+        InventoryItem item = this.getItem(itemName);
         if (item == null) {
             System.out.println("You don't have this item");
             return false;
@@ -83,16 +88,16 @@ public class Inventory {
 
     public void show() {
         System.out.printf("- Inventory: (%d/%d)%n", this.getLoad(), Inventory.MAX);
-        for (BaseItem baseItem : this.getItems()) {
-            System.out.println(baseItem.toString());
+        for (InventoryItem inventoryItem : this.getItems()) {
+            System.out.println(inventoryItem.toString());
         }
     }
 
-    public boolean contains(BaseItem item) {
+    public boolean contains(InventoryItem item) {
         if (item == null)
             return false;
 
-        for (BaseItem i : this.items) {
+        for (InventoryItem i : this.items) {
             if (i.equals(item)) {
                 return true;
             }
@@ -102,7 +107,7 @@ public class Inventory {
     }
 
     public boolean contains(String itemName) {
-        for (BaseItem i : this.items) {
+        for (InventoryItem i : this.items) {
             if (i.getName().equals(itemName)) {
                 return true;
             }

@@ -3,41 +3,49 @@
   <ID>JAVA</ID>
   <OriginalElement />
   <nodes>
-    <node x="340.0" y="266.0">woz.model.Inventory</node>
-    <node x="1.0" y="266.0">woz.engine.CommandWords</node>
+    <node x="233.25" y="238.0">woz.model.item.InventoryItem</node>
+    <node x="0.0" y="481.0">woz.model.Inventory</node>
+    <node x="0.0" y="405.0">woz.engine.CommandWords</node>
     <node x="98.0" y="81.0">woz.model.character.Hero</node>
+    <node x="513.0" y="329.0">woz.model.item.Life</node>
     <node x="0.0" y="81.0">woz.model.character.Enemy</node>
-    <node x="416.0" y="79.0">woz.model.item.Food</node>
-    <node x="483.0" y="266.0">woz.engine.Parser</node>
-    <node x="447.75" y="-2.0">woz.model.item.BaseItem</node>
+    <node x="143.0" y="481.0">woz.engine.Parser</node>
+    <node x="218.0" y="329.0">woz.model.item.Food</node>
     <node x="35.5" y="0.0">woz.model.character.Character</node>
-    <node x="503.0" y="79.0">woz.model.item.Potion</node>
-    <node x="118.0" y="342.0">woz.engine.Game</node>
+    <node x="305.0" y="329.0">woz.model.item.Potion</node>
+    <node x="403.0" y="329.0">woz.model.item.CoinBag</node>
+    <node x="0.0" y="557.0">woz.engine.Game</node>
     <node x="6.5" y="162.0">woz.model.character.Boss</node>
-    <node x="307.0" y="79.0">woz.model.item.Defense</node>
-    <node x="1.0" y="342.0">woz.engine.Room</node>
-    <node x="193.0" y="266.0">woz.engine.Command</node>
-    <node x="601.0" y="79.0">woz.model.item.Weapon</node>
+    <node x="109.0" y="329.0">woz.model.item.Defense</node>
+    <node x="264.0" y="481.0">woz.engine.Room</node>
+    <node x="192.0" y="405.0">woz.engine.Command</node>
+    <node x="0.0" y="329.0">woz.model.item.Weapon</node>
   </nodes>
   <notes />
   <edges>
-    <edge source="woz.model.item.Food" target="woz.model.item.BaseItem">
+    <edge source="woz.model.item.Weapon" target="woz.model.item.InventoryItem">
       <point x="0.0" y="-15.5" />
-      <point x="449.5" y="59.0" />
-      <point x="483.75" y="59.0" />
-      <point x="-12.0" y="15.5" />
+      <point x="44.5" y="289.0" />
+      <point x="244.0" y="289.0" />
+      <point x="-53.75" y="15.5" />
     </edge>
-    <edge source="woz.model.item.Weapon" target="woz.model.item.BaseItem">
+    <edge source="woz.model.item.Potion" target="woz.model.item.InventoryItem">
       <point x="0.0" y="-15.5" />
-      <point x="645.5" y="49.0" />
-      <point x="531.75" y="49.0" />
-      <point x="36.0" y="15.5" />
+      <point x="344.0" y="309.0" />
+      <point x="308.5" y="309.0" />
+      <point x="10.75" y="15.5" />
     </edge>
-    <edge source="woz.model.character.Hero" target="woz.model.character.Character">
+    <edge source="woz.model.item.CoinBag" target="woz.model.item.InventoryItem">
       <point x="0.0" y="-15.5" />
-      <point x="131.0" y="56.0" />
-      <point x="109.75" y="56.0" />
-      <point x="24.75" y="15.5" />
+      <point x="448.0" y="299.0" />
+      <point x="330.0" y="299.0" />
+      <point x="32.25" y="15.5" />
+    </edge>
+    <edge source="woz.model.item.Food" target="woz.model.item.InventoryItem">
+      <point x="0.0" y="-15.5" />
+      <point x="251.5" y="309.0" />
+      <point x="287.0" y="309.0" />
+      <point x="-10.75" y="15.5" />
     </edge>
     <edge source="woz.model.character.Enemy" target="woz.model.character.Character">
       <point x="0.0" y="-15.5" />
@@ -45,24 +53,30 @@
       <point x="60.25" y="56.0" />
       <point x="-24.75" y="15.5" />
     </edge>
-    <edge source="woz.model.item.Potion" target="woz.model.item.BaseItem">
+    <edge source="woz.model.character.Hero" target="woz.model.character.Character">
       <point x="0.0" y="-15.5" />
-      <point x="542.0" y="59.0" />
-      <point x="507.75" y="59.0" />
-      <point x="12.0" y="15.5" />
+      <point x="131.0" y="56.0" />
+      <point x="109.75" y="56.0" />
+      <point x="24.75" y="15.5" />
     </edge>
-    <edge source="woz.model.item.Defense" target="woz.model.item.BaseItem">
+    <edge source="woz.model.item.Life" target="woz.model.item.InventoryItem">
       <point x="0.0" y="-15.5" />
-      <point x="351.5" y="49.0" />
-      <point x="459.75" y="49.0" />
-      <point x="-36.0" y="15.5" />
+      <point x="542.0" y="289.0" />
+      <point x="351.5" y="289.0" />
+      <point x="53.75" y="15.5" />
+    </edge>
+    <edge source="woz.model.item.Defense" target="woz.model.item.InventoryItem">
+      <point x="0.0" y="-15.5" />
+      <point x="153.5" y="299.0" />
+      <point x="265.5" y="299.0" />
+      <point x="-32.25" y="15.5" />
     </edge>
     <edge source="woz.model.character.Boss" target="woz.model.character.Enemy">
       <point x="0.0" y="-15.5" />
       <point x="0.0" y="15.5" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="1.0" x="279.0" y="251.0" />
+  <settings layout="Hierarchic Group" zoom="1.0" x="285.5" y="294.0" />
   <SelectedNodes />
   <Categories />
   <SCOPE>All</SCOPE>

@@ -69,7 +69,7 @@ public class Hero extends Character {
     public void addXP(Integer XP) {
         this.XP += XP;
 
-        if (getLevel() < Hero.MAX_LEVEL)
+        if (getLevel() == Hero.MAX_LEVEL)
             return;
 
         if (this.XP >= (getLevel() * lvl_multiplier)) {

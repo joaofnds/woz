@@ -98,7 +98,7 @@ public class CommandWords {
             case CommandWords.ATTACK:
                 s += String.format("Syntax: attack enemyName");
                 s += String.format("%nDescription: Attacks a enemy. Be careful, he will attack you too!");
-                s += String.format("%nExample: attack ghost (Assuming that a enemy called 'ghost' is present in the current room.%n");
+                s += String.format("%nExample: attack ghost (Assuming that a enemy called 'ghost' is present in the current room.");
                 break;
             default:
                 s += "This isn't a command";

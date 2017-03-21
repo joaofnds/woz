@@ -2,7 +2,7 @@ package woz.model.item;
 /**
  * Class of type CoinBag that stores values ​​and methods for same
  * @author Gabriel Soares e João Fernandes
- * @Version 1.00
+ * @version 1.00
  */
 public class CoinBag extends InventoryItem {
     private Integer amount;

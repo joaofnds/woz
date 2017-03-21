@@ -9,7 +9,7 @@ import java.util.Objects;
 /**
  * Class of type Inventory that stores values ​​and methods for same
  * @author Gabriel Soares e João Fernandes
- * @Version 1.00
+ * @version 1.00
  */
 public class Inventory {
     public static final Integer MAX = 1000;

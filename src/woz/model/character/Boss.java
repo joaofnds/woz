@@ -8,7 +8,7 @@ import woz.model.item.Weapon;
 /**
  * Class of type Boss that stores values ​​and methods for same
  * @author Gabriel Soares e João Fernandes
- * @Version 1.00
+ * @version 1.00
  */
 public class Boss extends Enemy {
 
@@ -62,7 +62,7 @@ public class Boss extends Enemy {
 
     /**
      * set a life to drop
-     * @param droppableLife
+     * @param droppableLife life to drop
      */
     public void setDroppableLife(Life droppableLife) {
         this.droppableLife = droppableLife;

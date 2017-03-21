@@ -7,7 +7,7 @@ import woz.model.item.Weapon;
 /**
  * Class of type Enemy that stores values ​​and methods for same
  * @author Gabriel Soares e João Fernandes
- * @Version 1.00
+ * @version 1.00
  */
 
 public class Enemy extends Character {

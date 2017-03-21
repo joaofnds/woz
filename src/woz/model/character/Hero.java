@@ -5,7 +5,7 @@ import woz.model.item.*;
 /**
  * * Class of type Hero that stores values ​​and methods for same
  * @author Gabriel Soares e João Fernandes
- * @Version 1.00
+ * @version 1.00
  */
 
 public class Hero extends Character {
@@ -69,7 +69,7 @@ public class Hero extends Character {
     public void addXP(Integer XP) {
         this.XP += XP;
 
-        if (getLevel() < Hero.MAX_LEVEL)
+        if (getLevel() == Hero.MAX_LEVEL)
             return;
 
         if (this.XP >= (getLevel() * lvl_multiplier)) {

@@ -3,7 +3,7 @@ package woz.model.item;
 /**
  * Class of type Weapon that stores values ​​and methods for same
  * @author Gabriel Soares e João Fernandes
- * @Version 1.00
+ * @version 1.00
  */
 public class Weapon extends InventoryItem {
 

@@ -3,7 +3,7 @@ package woz.model.item;
 /**
  * Class of type Defense that stores values ​​and methods for same
  * @author Gabriel Soares e João Fernandes
- * @Version 1.00
+ * @version 1.00
  */
 public class Defense extends InventoryItem {
 

@@ -4,7 +4,7 @@ package woz.model.item;
 /**
  * Class of type Food that stores values ​​and methods for same
  * @author Gabriel Soares e João Fernandes
- * @Version 1.00
+ * @version 1.00
  */
 public class Food extends InventoryItem {
 

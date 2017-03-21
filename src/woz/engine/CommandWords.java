@@ -90,11 +90,17 @@ public class CommandWords {
                 s += String.format("%nDescription: Show information about a given command.");
                 s += String.format("%nExample: help");
                 break;
+            case CommandWords.ATTACK:
+                s += String.format("Syntax: attack");
+                s += String.format("%nDescription: Attack a target");
+                s += String.format("%nExample: attack ghost");
+                break;
             case CommandWords.QUIT:
                 s += String.format("Syntax: quit");
                 s += String.format("%nDescription: Quits the game.");
                 s += String.format("%nExample: quit");
                 break;
+
             default:
                 s += "This isn't a command";
         }
@@ -102,8 +108,8 @@ public class CommandWords {
     }
 
     /**
-     * Check whether a given String is a valid command word.
-     *
+     * * Check whether a given String is a valid command word.
+     * @param aString String to be tested
      * @return true if it is, false if it isn't.
      */
     public boolean isCommand(String aString) {

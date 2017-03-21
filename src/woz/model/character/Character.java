@@ -3,7 +3,7 @@ package woz.model.character;
 /**
  ** Class of type Character that stores values ​​and methods for same
  * @author Gabriel Soares e João Fernandes
- * @Version 1.00
+ * @version 1.00
  */
 public abstract class Character {
     public static final Integer MAX_HP = 100;
